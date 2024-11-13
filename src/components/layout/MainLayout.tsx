@@ -6,9 +6,28 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, MenuProps, theme } from "antd";
+import { Outlet } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
+
+const items: MenuProps["items"] = [
+  {
+    key: "1",
+    icon: <UserOutlined />,
+    label: "nav 1",
+  },
+  {
+    key: "2",
+    icon: <VideoCameraOutlined />,
+    label: "nav 2",
+  },
+  {
+    key: "3",
+    icon: <UploadOutlined />,
+    label: "nav 3",
+  },
+];
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -35,27 +54,17 @@ const MainLayout = () => {
     <Layout style={{ height: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
+
+        <div
+          className={`text-white text-center text-xl font-bold h-[4rem] flex justify-center items-center `}
+        >
+          <h1>{!collapsed ? "University Management" : "UM"}</h1>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
-            },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
-            },
-          ]}
+          items={items}
         />
       </Sider>
       <Layout>
@@ -80,7 +89,7 @@ const MainLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
