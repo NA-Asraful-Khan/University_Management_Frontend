@@ -1,33 +1,10 @@
 import { useEffect, useState } from "react";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Button, Layout, Menu, MenuProps, theme } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Button, Layout, Menu, theme } from "antd";
 import { Outlet } from "react-router-dom";
+import { adminSidebarItems } from "../../routes/admin.routes";
 
 const { Header, Sider, Content } = Layout;
-
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    icon: <UserOutlined />,
-    label: "nav 1",
-  },
-  {
-    key: "2",
-    icon: <VideoCameraOutlined />,
-    label: "nav 2",
-  },
-  {
-    key: "3",
-    icon: <UploadOutlined />,
-    label: "nav 3",
-  },
-];
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -64,7 +41,7 @@ const MainLayout = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={items}
+          items={adminSidebarItems}
         />
       </Sider>
       <Layout>
