@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
-import { adminSidebarItems } from "../../routes/admin.routes";
 
-const { Header, Sider, Content } = Layout;
+import Sidebar from "./Sidebar";
+
+const { Header, Content } = Layout;
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -29,21 +30,7 @@ const MainLayout = () => {
   }, []);
   return (
     <Layout style={{ height: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
-
-        <div
-          className={`text-white text-center text-xl font-bold h-[4rem] flex justify-center items-center `}
-        >
-          <h1>{!collapsed ? "University Management" : "UM"}</h1>
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={adminSidebarItems}
-        />
-      </Sider>
+      <Sidebar collapsed={collapsed} />
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
