@@ -4,10 +4,13 @@ import { Button, Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
 
 import Sidebar from "./Sidebar";
+import { useAppDispatch } from "../../redux/hooks";
+import { logout } from "../../redux/features/auth/auth.slice";
 
 const { Header, Content } = Layout;
 
 const MainLayout = () => {
+  const dispatch = useAppDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -28,6 +31,13 @@ const MainLayout = () => {
     // Cleanup listener on unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Handle Log Out
+
+  const handleLogout = () => {
+    // Implement logout logic here
+    dispatch(logout());
+  };
   return (
     <Layout style={{ height: "100vh" }}>
       <Sidebar collapsed={collapsed} />
@@ -43,6 +53,8 @@ const MainLayout = () => {
               height: 64,
             }}
           />
+
+          <Button onClick={handleLogout}>Log Out</Button>
         </Header>
         <Content
           style={{
