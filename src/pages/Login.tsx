@@ -1,21 +1,23 @@
-import { Button } from "antd";
-import { FieldValues, useForm } from "react-hook-form";
+import { Button, Row } from "antd";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/auth.api";
 import { useAppDispatch } from "../redux/hooks";
 import { setUser, TUser } from "../redux/features/auth/auth.slice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      userId: "A-0001",
-      password: "pherowebsite!@",
-    },
-  });
+
+  const defaultValues = {
+    userId: "A-0001",
+    password: "pherowebsite!@",
+  };
+
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: FieldValues) => {
@@ -40,27 +42,13 @@ const Login = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="id">ID: </label>
-        <input
-          className="border border-1 border-black"
-          type="text"
-          id="id"
-          {...register("userId")}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password: </label>
-        <input
-          className="border border-1 border-black"
-          type="text"
-          id="password"
-          {...register("password")}
-        />
-      </div>
-      <Button htmlType="submit">Login</Button>
-    </form>
+    <Row justify={"center"} align={"middle"} className="h-[100vh]">
+      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
+        <PHInput type={"text"} name={"userId"} label={"Id"} />
+        <PHInput type={"text"} name={"password"} label={"Password"} />
+        <Button htmlType="submit">Login</Button>
+      </PHForm>
+    </Row>
   );
 };
 
