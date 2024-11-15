@@ -12,7 +12,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      userId: "2024020001",
+      userId: "A-0001",
       password: "pherowebsite!@",
     },
   });
