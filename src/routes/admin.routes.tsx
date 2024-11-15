@@ -2,21 +2,30 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateStudent from "../pages/admin/CreateStudent";
 import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateAdmin from "../pages/admin/CreateAdmin";
-import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
-import { Navigate } from "react-router-dom";
+import {
+  DashboardOutlined,
+  MacCommandFilled,
+  UserOutlined,
+} from "@ant-design/icons";
+import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester";
 
 export const adminPaths = [
-  {
-    name: "Dashboard",
-    path: "",
-    icon: <DashboardOutlined />,
-    element: <Navigate to="admin/dashboard" replace />,
-  },
   {
     name: "Dashboard",
     path: "dashboard",
     icon: <DashboardOutlined />,
     element: <AdminDashboard />,
+  },
+  {
+    name: "Academic Management",
+    icon: <MacCommandFilled />,
+    children: [
+      {
+        name: "Academic Semester",
+        path: "academic-semester",
+        element: <AcademicSemester />,
+      },
+    ],
   },
   {
     name: "User Management",
