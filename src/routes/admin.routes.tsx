@@ -63,7 +63,7 @@ export const adminPaths = [
           },
           {
             name: "Update A. Semester",
-            path: ":academicFacultyId",
+            path: ":id",
             element: <UpdateAcademicFaculty />,
           },
         ],

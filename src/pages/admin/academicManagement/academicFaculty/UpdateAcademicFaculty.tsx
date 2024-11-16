@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 
 const UpdateAcademicFaculty = () => {
-  const { academicFacultyId } = useParams();
+  const { academicFacultyId: id } = useParams();
   return (
     <div>
-      <h1> This is UpdateAcademicFaculty Component {academicFacultyId} </h1>
+      <h1> This is UpdateAcademicFaculty Component {id} </h1>
     </div>
   );
 };
