@@ -1,23 +1,37 @@
 import { Button, Row } from "antd";
 import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/auth.api";
-import { useAppDispatch } from "../redux/hooks";
-import { setUser, TUser } from "../redux/features/auth/auth.slice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {
+  selectCurrentUser,
+  setUser,
+  TUser,
+} from "../redux/features/auth/auth.slice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
 import PHInput from "../components/form/PHInput";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const CurrentUser = useAppSelector(selectCurrentUser);
+
+  // Redirect to  DashBoard If Already Login
+  useEffect(() => {
+    if (CurrentUser) {
+      navigate(`/${CurrentUser?.role}/dashboard`);
+    }
+  }, [CurrentUser, navigate]);
 
   const defaultValues = {
     userId: "A-0001",
     password: "pherowebsite!@",
   };
 
+  // Login Mutation Hook
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: FieldValues) => {

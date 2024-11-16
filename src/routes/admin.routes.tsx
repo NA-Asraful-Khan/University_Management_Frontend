@@ -7,7 +7,11 @@ import {
   MacCommandFilled,
   UserOutlined,
 } from "@ant-design/icons";
-import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester";
+import CreateAcademicSemester from "../pages/admin/academicManagement/academicSemester/CreateAcademicSemester";
+import AcademicSemester from "../pages/admin/academicManagement/academicSemester/AcademicSemester";
+import CreateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/CreateAcademicFaculty";
+import AcademicFaculty from "../pages/admin/academicManagement/academicFaculty/AcademicFaculty";
+import UpdateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/UpdateAcademicFaculty";
 
 export const adminPaths = [
   {
@@ -17,18 +21,8 @@ export const adminPaths = [
     element: <AdminDashboard />,
   },
   {
-    name: "Academic Management",
-    icon: <MacCommandFilled />,
-    children: [
-      {
-        name: "Academic Semester",
-        path: "academic-semester",
-        element: <AcademicSemester />,
-      },
-    ],
-  },
-  {
     name: "User Management",
+    path: "",
     icon: <UserOutlined />,
     children: [
       {
@@ -45,6 +39,50 @@ export const adminPaths = [
         name: "Create Student",
         path: "create-student",
         element: <CreateStudent />,
+      },
+    ],
+  },
+  {
+    name: "Academic Management",
+    path: "",
+    icon: <MacCommandFilled />,
+    children: [
+      {
+        name: "Academic Semester",
+        path: "academic-semester",
+        children: [
+          {
+            name: "academic-semester",
+            path: "",
+            element: <AcademicSemester />,
+          },
+          {
+            name: "Create A. Semester",
+            path: "create-academic-semester",
+            element: <CreateAcademicSemester />,
+          },
+          {
+            name: "Update A. Semester",
+            path: ":academicFacultyId",
+            element: <UpdateAcademicFaculty />,
+          },
+        ],
+      },
+      {
+        name: "Academic Faculty",
+        path: "academic-faculty",
+        children: [
+          {
+            name: "academic-faculty",
+            path: "",
+            element: <AcademicFaculty />,
+          },
+          {
+            name: "Create A. Faculty",
+            path: "create-academic-faculty",
+            element: <CreateAcademicFaculty />,
+          },
+        ],
       },
     ],
   },
