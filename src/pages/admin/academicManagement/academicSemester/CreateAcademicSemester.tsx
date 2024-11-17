@@ -5,10 +5,35 @@ import CustomSelect from "../../../../components/form/CustomSelect";
 import { SemesterOptions, yearOptions } from "../../../../constants/semester";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "../../../../schemas/academicManagement.schema";
+import { useAddAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { TResponse } from "../../../../types";
 
 const CreateAcademicSemester = () => {
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  const navigate = useNavigate();
+  const [addAcademicSemester] = useAddAcademicSemesterMutation();
+  const onSubmit = async (data: FieldValues) => {
+    const toastId = toast.loading("Creating... ");
+    try {
+      const res = (await addAcademicSemester(data)) as TResponse;
+
+      if (!res.error) {
+        toast.success("Academic Semester created successfully", {
+          id: toastId,
+        });
+        navigate(`/admin/academic-semester`);
+      } else {
+        toast.error(res.error.data.message, {
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong", {
+        id: toastId,
+      });
+      console.error(error);
+    }
   };
 
   return (

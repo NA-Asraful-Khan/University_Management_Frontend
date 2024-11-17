@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { useGetAllSemestersQuery } from "../../../../redux/features/academicSemester/academicSemester.api";
 import { Button } from "antd";
+import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagement.api";
 
 const AcademicSemester = () => {
   const { pathname } = useLocation();
