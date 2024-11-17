@@ -1,3 +1,4 @@
+import { TAcademicSemester, TResponseRedux } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
@@ -5,8 +6,15 @@ const academicManagementApi = baseApi.injectEndpoints({
     getAllSemesters: builder.query({
       query: () => {
         return {
-          url: "/academic-semesters",
+          url: "/academic-semesters/pagination/query",
           method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
+        console.log(response);
+        return {
+          data: response.data,
+          pagination: response.pagination,
         };
       },
     }),

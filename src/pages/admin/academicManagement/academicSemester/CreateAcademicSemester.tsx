@@ -8,7 +8,7 @@ import { academicSemesterSchema } from "../../../../schemas/academicManagement.s
 import { useAddAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { TResponse } from "../../../../types";
+import { TAcademicSemester, TResponse } from "../../../../types";
 
 const CreateAcademicSemester = () => {
   const navigate = useNavigate();
@@ -16,7 +16,9 @@ const CreateAcademicSemester = () => {
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Creating... ");
     try {
-      const res = (await addAcademicSemester(data)) as TResponse;
+      const res = (await addAcademicSemester(
+        data
+      )) as TResponse<TAcademicSemester>;
 
       if (!res.error) {
         toast.success("Academic Semester created successfully", {
