@@ -10,8 +10,8 @@ import {
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import PHForm from "../components/form/PHForm";
-import PHInput from "../components/form/PHInput";
+import CustomForm from "../components/form/CustomForm";
+import CustomInput from "../components/form/CustomInput";
 import { useEffect } from "react";
 
 const Login = () => {
@@ -57,11 +57,11 @@ const Login = () => {
   };
   return (
     <Row justify={"center"} align={"middle"} className="h-[100vh]">
-      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
-        <PHInput type={"text"} name={"userId"} label={"Id"} />
-        <PHInput type={"text"} name={"password"} label={"Password"} />
+      <CustomForm onSubmit={onSubmit} defaultValues={defaultValues}>
+        <CustomInput type={"text"} name={"userId"} label={"Id"} />
+        <CustomInput type={"text"} name={"password"} label={"Password"} />
         <Button htmlType="submit">Login</Button>
-      </PHForm>
+      </CustomForm>
     </Row>
   );
 };

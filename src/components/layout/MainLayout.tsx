@@ -39,7 +39,7 @@ const MainLayout = () => {
     dispatch(logout());
   };
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ height: "100%" }}>
       <Sidebar collapsed={collapsed} />
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>

@@ -37,7 +37,12 @@ const Sidebar = ({ collapsed }: TSidebarType) => {
       break;
   }
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Sider
+      className="h-[100vh] sticky top-0 left-0"
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+    >
       <div className="demo-logo-vertical" />
 
       <div

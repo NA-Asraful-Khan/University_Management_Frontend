@@ -2,21 +2,21 @@ import { Form, Select } from "antd";
 import { Controller } from "react-hook-form";
 
 type TSelectOptions = {
-  value: string;
-  label: string;
+  value: string | number;
+  label: string | number;
   disabled?: boolean;
 };
 
 type TSelectProps = {
-  label: string;
+  label: string | number;
   options: TSelectOptions[];
   name: string;
 };
-const PHSelect = ({ options, label, name }: TSelectProps) => {
+const CustomSelect = ({ options, label, name }: TSelectProps) => {
   return (
     <Controller
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
             defaultValue=""
@@ -25,11 +25,13 @@ const PHSelect = ({ options, label, name }: TSelectProps) => {
             allowClear
             options={options}
             placeholder={`Select ${label}`}
+            size="middle"
           />
+          {error && <small className="text-red-600">{error.message}</small>}
         </Form.Item>
       )}
     />
   );
 };
 
-export default PHSelect;
+export default CustomSelect;

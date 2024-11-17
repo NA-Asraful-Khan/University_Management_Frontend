@@ -1,27 +1,31 @@
 import { FieldValues } from "react-hook-form";
-import PHForm from "../../../../components/form/PHForm";
-import PHInput from "../../../../components/form/PHInput";
+import CustomForm from "../../../../components/form/CustomForm";
 import { Button, Col, Flex } from "antd";
-import PHSelect from "../../../../components/form/PHSelect";
-
-const SemesterOptions = [
-  { value: "Summer", label: "Summer" },
-  { value: "Autumn", label: "Autumn" },
-  { value: "Fall", label: "Fall" },
-];
+import CustomSelect from "../../../../components/form/CustomSelect";
+import { SemesterOptions, yearOptions } from "../../../../constants/semester";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { academicSemesterSchema } from "../../../../schemas/academicManagement.schema";
 
 const CreateAcademicSemester = () => {
   const onSubmit = (data: FieldValues) => {
     console.log(data);
   };
+
   return (
     <Flex justify="center" align="center">
       <Col span={6}>
-        <PHForm onSubmit={onSubmit}>
-          <PHSelect name="name" options={SemesterOptions} label="Semester" />
-          <PHInput type="number" name="year" label="Year" />
+        <CustomForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(academicSemesterSchema)}
+        >
+          <CustomSelect
+            name="name"
+            options={SemesterOptions}
+            label="Semester"
+          />
+          <CustomSelect name="year" options={yearOptions} label="Year" />
           <Button htmlType="submit">Create</Button>
-        </PHForm>
+        </CustomForm>
       </Col>
     </Flex>
   );

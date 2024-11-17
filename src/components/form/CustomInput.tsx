@@ -8,12 +8,12 @@ type TInputProps = {
   name: string;
   label?: string;
 };
-const PHInput = ({ type, name, label }: TInputProps) => {
+const CustomInput = ({ type, name, label }: TInputProps) => {
   return (
     <div className="mb-5">
       <Controller
         name={name}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
             <Input
               className="border border-1 border-black"
@@ -21,6 +21,7 @@ const PHInput = ({ type, name, label }: TInputProps) => {
               type={type}
               id={name}
             />
+            {error && <small className="text-red-600">{error.message}</small>}
           </Form.Item>
         )}
       />
@@ -28,4 +29,4 @@ const PHInput = ({ type, name, label }: TInputProps) => {
   );
 };
 
-export default PHInput;
+export default CustomInput;
