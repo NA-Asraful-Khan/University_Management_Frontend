@@ -3,16 +3,18 @@ import { Button, Table } from "antd";
 import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagement.api";
 
 import type { TableColumnsType, TableProps } from "antd";
-interface DataType {
-  key: React.Key;
-  name: string;
-  age: number;
-  address: string;
-}
+import { TAcademicSemester } from "../../../../types";
+
+export type TTableData = Pick<
+  TAcademicSemester,
+  "_id" | "name" | "startMonth" | "endMonth" | "year"
+>;
 
 const AcademicSemester = () => {
   const { pathname } = useLocation();
-  const { data: semesterData } = useGetAllSemestersQuery(undefined);
+  const { data: semesterData } = useGetAllSemestersQuery([
+    { name: "name", value: "Fall" },
+  ]);
   console.log(semesterData);
 
   const tableData = semesterData?.data?.map(
@@ -25,7 +27,7 @@ const AcademicSemester = () => {
     })
   );
 
-  const columns: TableColumnsType<DataType> = [
+  const columns: TableColumnsType<TTableData> = [
     {
       title: "Name",
       dataIndex: "name",
@@ -64,7 +66,7 @@ const AcademicSemester = () => {
       title: "Year",
       dataIndex: "year",
       defaultSortOrder: "descend",
-      sorter: (a, b) => a.age - b.age,
+      // sorter: (a, b) => a.age - b.age,
     },
     {
       title: "Start",
@@ -79,8 +81,8 @@ const AcademicSemester = () => {
           value: "New York",
         },
       ],
-      onFilter: (value, record) =>
-        record.address.indexOf(value as string) === 0,
+      // onFilter: (value, record) =>
+      //   record.address.indexOf(value as string) === 0,
     },
     {
       title: "End",
@@ -95,12 +97,12 @@ const AcademicSemester = () => {
           value: "New York",
         },
       ],
-      onFilter: (value, record) =>
-        record.address.indexOf(value as string) === 0,
+      // onFilter: (value, record) =>
+      //   record.address.indexOf(value as string) === 0,
     },
   ];
 
-  const onChange: TableProps<DataType>["onChange"] = (
+  const onChange: TableProps<TTableData>["onChange"] = (
     pagination,
     filters,
     sorter,
@@ -115,7 +117,7 @@ const AcademicSemester = () => {
       <Link to={`${pathname}/create-academic-semester`}>
         <Button>Create Semester</Button>
       </Link>
-      <Table<DataType>
+      <Table<TTableData>
         columns={columns}
         dataSource={tableData}
         onChange={onChange}
