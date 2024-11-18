@@ -16,6 +16,5 @@ export const routeGenerator = (items: TUserPaths[]): TRoute[] => {
     element: item.element || undefined,
     children: item.children ? processChildren(item.children) : undefined,
   }));
-  console.log(routes);
   return routes;
 };
