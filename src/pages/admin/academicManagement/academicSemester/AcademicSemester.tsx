@@ -32,6 +32,11 @@ const AcademicSemester = () => {
 
   const columns: TableColumnsType<TTableData> = [
     {
+      title: "#",
+      dataIndex: "index",
+      render: (_: any, __: TTableData, index: number) => index + 1, // Generate index
+    },
+    {
       title: "Name",
       dataIndex: "name",
       showSorterTooltip: { target: "full-header" },

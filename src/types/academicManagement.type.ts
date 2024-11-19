@@ -8,3 +8,11 @@ export interface TAcademicSemester {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface TAcademicFaculty {
+  name: string;
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

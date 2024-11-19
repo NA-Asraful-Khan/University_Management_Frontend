@@ -10,6 +10,7 @@ import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/auth.slice";
 import { toast } from "sonner";
 import { TResponse } from "../../types";
+import { tagTypes } from "../../types/tagTypes";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
   credentials: "include",
@@ -27,7 +28,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   BaseQueryApi,
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
-  let result = (await baseQuery(args, api, extraOptions)) as TResponse;
+  let result = (await baseQuery(args, api, extraOptions)) as TResponse<any>;
 
   if (result?.error?.status === 404) {
     toast.error(result?.error?.data?.message);
@@ -48,7 +49,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
         })
       );
 
-      result = (await baseQuery(args, api, extraOptions)) as TResponse;
+      result = (await baseQuery(args, api, extraOptions)) as TResponse<any>;
     } else {
       api.dispatch(logout());
     }
@@ -62,5 +63,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
+  tagTypes: tagTypes,
   endpoints: () => ({}),
 });
