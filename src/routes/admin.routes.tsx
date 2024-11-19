@@ -1,7 +1,7 @@
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateStudent from "../pages/admin/CreateStudent";
-import CreateFaculty from "../pages/admin/CreateFaculty";
-import CreateAdmin from "../pages/admin/CreateAdmin";
+import CreateStudent from "../pages/admin/userManagement/student/CreateStudent";
+import CreateFaculty from "../pages/admin/userManagement/faculty/CreateFaculty";
+import CreateAdmin from "../pages/admin/userManagement/admin/CreateAdmin";
 import {
   DashboardOutlined,
   MacCommandFilled,

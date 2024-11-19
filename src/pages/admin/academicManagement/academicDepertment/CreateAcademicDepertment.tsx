@@ -15,7 +15,7 @@ import {
   TSelectOptions,
 } from "../../../../types";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CreateAcademicDepertment = () => {
   const navigate = useNavigate();
@@ -74,6 +74,9 @@ const CreateAcademicDepertment = () => {
             label="Faculties"
           />
           <Button htmlType="submit">Create</Button>
+          <Link className="ml-2" to={`/admin/academic-depertment`}>
+            <Button>Cancel</Button>
+          </Link>
         </CustomForm>
       </Col>
     </Flex>

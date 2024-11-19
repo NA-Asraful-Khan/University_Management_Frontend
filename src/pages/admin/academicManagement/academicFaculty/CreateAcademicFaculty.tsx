@@ -7,7 +7,7 @@ import CustomInput from "../../../../components/form/CustomInput";
 import { toast } from "sonner";
 import { TAcademicFaculty, TResponse } from "../../../../types";
 import { useAddAcademicFacultyMutation } from "../../../../redux/features/admin/academicManagement.api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CreateAcademicFaculty = () => {
   const navigate = useNavigate();
@@ -46,6 +46,9 @@ const CreateAcademicFaculty = () => {
         >
           <CustomInput type={"text"} name={"name"} label={"Academic Faculty"} />
           <Button htmlType="submit">Create</Button>
+          <Link className="ml-2" to={`/admin/academic-faculty`}>
+            <Button>Cancel</Button>
+          </Link>
         </CustomForm>
       </Col>
     </Flex>

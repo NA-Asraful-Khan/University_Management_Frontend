@@ -157,10 +157,12 @@ const AcademicSemester = () => {
 
   return (
     <div>
-      <h1>This is AcademicSemester Component </h1>
-      <Link to={`${pathname}/create-academic-semester`}>
-        <Button>Create Semester</Button>
-      </Link>
+      <div className="flex justify-between items-center font-bold">
+        <h1 className="text-xl"> Academic Semester </h1>
+        <Link to={`${pathname}/create-academic-semester`}>
+          <Button>Create Semester</Button>
+        </Link>
+      </div>
       <Table
         loading={isFetching || isLoading}
         columns={columns}

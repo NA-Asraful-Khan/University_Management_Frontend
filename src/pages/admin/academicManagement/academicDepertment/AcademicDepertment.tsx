@@ -62,10 +62,12 @@ const AcademicDepertment = () => {
   ];
   return (
     <div>
-      <h1> This is AcademicDepertment Component </h1>
-      <Link to={`${pathname}/create-academic-depertment`}>
-        <Button>Create Semester</Button>
-      </Link>
+      <div className="flex justify-between items-center font-bold">
+        <h1 className="text-xl"> Academic Depertment </h1>
+        <Link to={`${pathname}/create-academic-depertment`}>
+          <Button>Create Semester</Button>
+        </Link>
+      </div>
       <Table
         loading={isFetching || isLoading}
         columns={columns}

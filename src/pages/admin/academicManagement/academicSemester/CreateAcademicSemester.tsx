@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "../../../../schemas/academicManagement.schema";
 import { useAddAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TAcademicSemester, TResponse } from "../../../../types";
 
 const CreateAcademicSemester = () => {
@@ -52,6 +52,9 @@ const CreateAcademicSemester = () => {
           />
           <CustomSelect name="year" options={yearOptions} label="Year" />
           <Button htmlType="submit">Create</Button>
+          <Link className="ml-2" to={`/admin/academic-semester`}>
+            <Button>Cancel</Button>
+          </Link>
         </CustomForm>
       </Col>
     </Flex>
