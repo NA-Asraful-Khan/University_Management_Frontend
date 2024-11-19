@@ -32,6 +32,8 @@ const AcademicFaculty = () => {
       dataIndex: "name",
       key: "name",
       showSorterTooltip: { target: "full-header" },
+      sorter: (a, b) => a.name.length - b.name.length,
+      sortDirections: ["descend"],
     },
     {
       title: "Action",
