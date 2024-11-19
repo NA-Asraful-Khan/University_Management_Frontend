@@ -31,3 +31,9 @@ export type TQueryParam = {
   name: string;
   value: boolean | React.Key;
 };
+
+export type TSelectOptions = {
+  value: string | number;
+  label: string | number;
+  disabled?: boolean;
+};

@@ -1,24 +1,31 @@
 import { Button, Table, TableColumnsType } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { TAcademicFaculty } from "../../../../types";
-import { useGetAllAcademicFacultyByPaginationQuery } from "../../../../redux/features/admin/academicManagement.api";
+import { useGetAllAcademicDepertmentByPaginationQuery } from "../../../../redux/features/admin/academicManagement.api";
+import { TAcademicDepertment, TAcademicFaculty } from "../../../../types";
 
-export type TTableData = Pick<TAcademicFaculty, "name">;
-const AcademicFaculty = () => {
+export type TTableData = Pick<TAcademicDepertment, "name"> & {
+  academicFaculty: Pick<TAcademicFaculty, "name"> & {
+    name: string | undefined;
+  };
+};
+const AcademicDepertment = () => {
   const { pathname } = useLocation();
 
   // Get Faculty Data
   const {
-    data: academicFacultyData,
+    data: academicDepertmentData,
     isLoading,
     isFetching,
-  } = useGetAllAcademicFacultyByPaginationQuery(undefined);
+  } = useGetAllAcademicDepertmentByPaginationQuery(undefined);
+  console.log(isLoading, isFetching, academicDepertmentData);
 
   // Table Data
-  const tableData = academicFacultyData?.data?.map(({ _id, name }) => ({
-    key: _id,
-    name,
-  }));
+  const tableData: TTableData[] =
+    academicDepertmentData?.data?.map(({ _id, name, academicFaculty }) => ({
+      key: _id,
+      name,
+      academicFaculty: { name: academicFaculty?.name || "" }, // Provide a fallback
+    })) || [];
 
   // Table Columns
   const columns: TableColumnsType<TTableData> = [
@@ -36,6 +43,11 @@ const AcademicFaculty = () => {
       sortDirections: ["descend"],
     },
     {
+      title: "Faculty",
+      dataIndex: ["academicFaculty", "name"], // Access nested field
+      key: "academicFaculty.name",
+    },
+    {
       title: "Action",
       key: "x",
       render: () => {
@@ -48,12 +60,11 @@ const AcademicFaculty = () => {
       },
     },
   ];
-
   return (
     <div>
-      <h1> This is AcademicFaculty Component </h1>
-      <Link to={`${pathname}/create-academic-faculty`}>
-        <Button>Create Faculty</Button>
+      <h1> This is AcademicDepertment Component </h1>
+      <Link to={`${pathname}/create-academic-depertment`}>
+        <Button>Create Semester</Button>
       </Link>
       <Table
         loading={isFetching || isLoading}
@@ -65,4 +76,4 @@ const AcademicFaculty = () => {
   );
 };
 
-export default AcademicFaculty;
+export default AcademicDepertment;

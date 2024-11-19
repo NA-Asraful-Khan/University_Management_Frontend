@@ -1,11 +1,6 @@
 import { Form, Select } from "antd";
 import { Controller } from "react-hook-form";
-
-type TSelectOptions = {
-  value: string | number;
-  label: string | number;
-  disabled?: boolean;
-};
+import { TSelectOptions } from "../../types";
 
 type TSelectProps = {
   label: string | number;

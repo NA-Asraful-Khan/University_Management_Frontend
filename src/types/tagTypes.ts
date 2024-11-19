@@ -1,1 +1,5 @@
-export const tagTypes = ["academicsemester", "academicfaculty"];
+export const tagTypes = [
+  "academicsemester",
+  "academicfaculty",
+  "academicdepertment",
+];

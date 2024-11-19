@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button, Table } from "antd";
-import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagement.api";
+import { useGetAllSemestersByPaginationQuery } from "../../../../redux/features/admin/academicManagement.api";
 
 import type { TableColumnsType, TableProps } from "antd";
 import { TAcademicSemester, TQueryParam } from "../../../../types";
@@ -18,7 +18,7 @@ const AcademicSemester = () => {
     data: semesterData,
     isLoading,
     isFetching,
-  } = useGetAllSemestersQuery(params);
+  } = useGetAllSemestersByPaginationQuery(params);
 
   const tableData = semesterData?.data?.map(
     ({ _id, name, startMonth, endMonth, year }) => ({
