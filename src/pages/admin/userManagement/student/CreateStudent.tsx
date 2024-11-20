@@ -10,7 +10,7 @@ import {
   useGetAllAcademicDepertmentQuery,
   useGetAllSemestersQuery,
 } from "../../../../redux/features/admin/academicManagement.api";
-import { TResponse, TSelectOptions } from "../../../../types";
+import { TResponse, TSelectOptions, TStudent } from "../../../../types";
 import { useAddStudentMutation } from "../../../../redux/features/admin/userManagement.api";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
@@ -48,7 +48,7 @@ const CreateStudent = () => {
       formData.append("data", JSON.stringify(studentData));
       formData.append("file", data.image);
 
-      const res = (await addStudent(formData)) as TResponse<any>;
+      const res = (await addStudent(formData)) as TResponse<TStudent>;
 
       if (!res.error) {
         toast.success("Academic Depertment created successfully", {
