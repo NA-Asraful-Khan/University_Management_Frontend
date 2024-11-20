@@ -26,3 +26,35 @@ export const studentDefaultValues = {
     address: "692 Prescott Place, Ona, New Hampshire, 41379",
   },
 };
+
+export const facultyDefaultValues = {
+  name: {
+    firstName: "Hanson",
+    middleName: "Young",
+    lastName: "Juarez",
+  },
+  gender: "Male",
+  email: "youngjuarez@kenegy.com",
+  contactNo: "(995) 444-3799",
+  emergencyContactNo: "(929) 576-2476",
+  bloodGroup: "A+",
+  presentAddress: "831 Bay Street, Sisquoc, New Jersey, 72204",
+  permanentAddress: "963 Aberdeen Street, Duryea, Georgia, 70383",
+  designation: "Lecturer",
+};
+
+export const adminDefaultValues = {
+  name: {
+    firstName: "Patel",
+    middleName: "Reyes",
+    lastName: "Johnston",
+  },
+  gender: "female",
+  email: "reyesjohnston@kenegy.com",
+  contactNo: "(829) 577-3783",
+  emergencyContactNo: "(891) 523-2049",
+  bloodGroup: "B+",
+  presentAddress: "126 Fulton Street, Harleigh, Alaska, 14954",
+  permanentAddress: "844 Greenwood Avenue, Roberts, Minnesota, 16443",
+  designation: "Principle",
+};
