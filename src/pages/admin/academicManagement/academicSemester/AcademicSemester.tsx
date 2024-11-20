@@ -5,6 +5,7 @@ import { useGetAllSemestersByPaginationQuery } from "../../../../redux/features/
 import type { TableColumnsType, TableProps } from "antd";
 import { TAcademicSemester, TQueryParam } from "../../../../types";
 import { useState } from "react";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export type TTableData = Pick<
   TAcademicSemester,
@@ -124,9 +125,13 @@ const AcademicSemester = () => {
       key: "x",
       render: () => {
         return (
-          <div>
-            <Button>Update</Button>
-            <Button>Delete</Button>
+          <div className="flex gap-2">
+            <Button>
+              <EditOutlined />
+            </Button>
+            <Button>
+              <DeleteOutlined />
+            </Button>
           </div>
         );
       },
