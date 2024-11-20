@@ -1,7 +1,7 @@
-import { FieldValues } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import CustomForm from "../../../../components/form/CustomForm";
 import CustomInput from "../../../../components/form/CustomInput";
-import { Button, Col, Divider, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
@@ -10,9 +10,15 @@ import {
   useGetAllAcademicDepertmentQuery,
   useGetAllSemestersQuery,
 } from "../../../../redux/features/admin/academicManagement.api";
-import { TSelectOptions } from "../../../../types";
+import { TResponse, TSelectOptions } from "../../../../types";
+import { useAddStudentMutation } from "../../../../redux/features/admin/userManagement.api";
+import { toast } from "sonner";
+import { Link, useNavigate } from "react-router-dom";
 
 const CreateStudent = () => {
+  const navigate = useNavigate();
+  const [addStudent] = useAddStudentMutation();
+
   //Get Semester Options
   const { data: semesterData, isLoading: sIsLoading } =
     useGetAllSemestersQuery(undefined);
@@ -24,17 +30,42 @@ const CreateStudent = () => {
 
   //Get Depertment Options
   const { data: depertmentData, isLoading: dIsLoading } =
-    useGetAllAcademicDepertmentQuery(undefined);
+    useGetAllAcademicDepertmentQuery(undefined, { skip: sIsLoading });
   const depertmentOptions: TSelectOptions[] =
     depertmentData?.data?.map(({ _id, name }) => ({
       value: String(_id),
       label: String(name),
     })) || [];
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
+    const toastId = toast.loading("Creating... ");
     console.log(data);
-    // const formData = new FormData();
+    try {
+      const studentData = {
+        student: data,
+      };
+      const formData = new FormData();
 
-    // formData.append("data", JSON.stringify(data));
+      formData.append("data", JSON.stringify(studentData));
+      formData.append("file", data.image);
+
+      const res = (await addStudent(formData)) as TResponse<any>;
+
+      if (!res.error) {
+        toast.success("Academic Depertment created successfully", {
+          id: toastId,
+        });
+        navigate(`/admin/student-list`);
+      } else {
+        toast.error(res.error.data.message, {
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong", {
+        id: toastId,
+      });
+      console.error(error);
+    }
 
     // //! This is for Development
     // console.log(Object.fromEntries(formData));
@@ -64,6 +95,21 @@ const CreateStudent = () => {
         </Col>
         <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
           <CustomSelect name="gender" label="Gender" options={genderOptions} />
+        </Col>
+        <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
+          <Controller
+            name="image"
+            render={({ field: { onChange, value, ...field } }) => (
+              <Form.Item label="Picture">
+                <Input
+                  type="file"
+                  value={value?.fileName}
+                  {...field}
+                  onChange={(e) => onChange(e.target.files?.[0])}
+                />
+              </Form.Item>
+            )}
+          />
         </Col>
       </Row>
 
@@ -195,6 +241,9 @@ const CreateStudent = () => {
       <Button type="primary" htmlType="submit">
         Create
       </Button>
+      <Link className="ml-2" to={`/admin/student-list`}>
+        <Button>Cancel</Button>
+      </Link>
     </CustomForm>
   );
 };

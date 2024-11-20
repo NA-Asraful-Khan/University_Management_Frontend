@@ -8,6 +8,7 @@ import CustomSelect from "../../../../components/form/CustomSelect";
 import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
 import { facultyDefaultValues } from "../../../../constants/default";
+import { Link } from "react-router-dom";
 
 const CreateFaculty = () => {
   //Get Depertment Options
@@ -104,6 +105,9 @@ const CreateFaculty = () => {
       <Button type="primary" htmlType="submit">
         Create
       </Button>
+      <Link className="ml-2" to={`/admin/faculty-list`}>
+        <Button>Cancel</Button>
+      </Link>
     </CustomForm>
   );
 };

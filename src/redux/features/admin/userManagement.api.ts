@@ -9,6 +9,7 @@ const userManagementApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: [{ type: "student" }],
     }),
     getAllStudentsByPagination: builder.query({
       query: () => {
@@ -17,6 +18,7 @@ const userManagementApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: [{ type: "student" }],
     }),
     addStudent: builder.mutation({
       query: (data) => {
@@ -26,6 +28,7 @@ const userManagementApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: [{ type: "student" }],
     }),
   }),
 });

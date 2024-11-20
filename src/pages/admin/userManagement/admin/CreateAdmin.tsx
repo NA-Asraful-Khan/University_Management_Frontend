@@ -6,6 +6,7 @@ import CustomInput from "../../../../components/form/CustomInput";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
+import { Link } from "react-router-dom";
 
 const CreateAdmin = () => {
   const onSubmit = (data: FieldValues) => {
@@ -86,6 +87,9 @@ const CreateAdmin = () => {
       <Button type="primary" htmlType="submit">
         Create
       </Button>
+      <Link className="ml-2" to={`/admin/admin-list`}>
+        <Button>Cancel</Button>
+      </Link>
     </CustomForm>
   );
 };

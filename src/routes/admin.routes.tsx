@@ -14,6 +14,9 @@ import AcademicFaculty from "../pages/admin/academicManagement/academicFaculty/A
 import UpdateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/UpdateAcademicFaculty";
 import AcademicDepertment from "../pages/admin/academicManagement/academicDepertment/AcademicDepertment";
 import CreateAcademicDepertment from "../pages/admin/academicManagement/academicDepertment/CreateAcademicDepertment";
+import StudentList from "../pages/admin/userManagement/student/StudentList";
+import FacultyList from "../pages/admin/userManagement/faculty/FacultyList";
+import AdminList from "../pages/admin/userManagement/admin/AdminList";
 
 export const adminPaths = [
   {
@@ -28,19 +31,52 @@ export const adminPaths = [
     icon: <UserOutlined />,
     children: [
       {
-        name: "Create Admin",
-        path: "create-admin",
-        element: <CreateAdmin />,
+        name: "Admin List",
+        path: "admin-list",
+        children: [
+          {
+            name: "admin-list",
+            path: "",
+            element: <AdminList />,
+          },
+          {
+            name: "Create Admin",
+            path: "create-admin",
+            element: <CreateAdmin />,
+          },
+        ],
       },
       {
-        name: "Create Faculty",
-        path: "create-faculty",
-        element: <CreateFaculty />,
+        name: "Faculty List",
+        path: "faculty-list",
+        children: [
+          {
+            name: "faculty-list",
+            path: "",
+            element: <FacultyList />,
+          },
+          {
+            name: "Create Faculty",
+            path: "create-faculty",
+            element: <CreateFaculty />,
+          },
+        ],
       },
       {
-        name: "Create Student",
-        path: "create-student",
-        element: <CreateStudent />,
+        name: "Student List",
+        path: "student-list",
+        children: [
+          {
+            name: "student-list",
+            path: "",
+            element: <StudentList />,
+          },
+          {
+            name: "Create Student",
+            path: "create-student",
+            element: <CreateStudent />,
+          },
+        ],
       },
     ],
   },
