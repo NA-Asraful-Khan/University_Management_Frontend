@@ -4,7 +4,7 @@ import {
   TAcademicSemester,
 } from "./academicManagement.type";
 
-export interface User {
+export interface TUser {
   _id: string;
   id: string;
   email: string;
@@ -17,7 +17,7 @@ export interface User {
   __v: number;
 }
 
-export interface Name {
+export interface TName {
   firstName: string;
   middleName: string;
   lastName: string;
@@ -25,7 +25,7 @@ export interface Name {
   id: string;
 }
 
-export interface Gurdian {
+export interface TGurdian {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
@@ -36,7 +36,7 @@ export interface Gurdian {
   id: string;
 }
 
-export interface LocalGuardians {
+export interface TLocalGuardians {
   name: string;
   contactNo: string;
   occupation: string;
@@ -48,8 +48,8 @@ export interface LocalGuardians {
 export interface TStudent {
   _id: string;
   id: string;
-  user: User;
-  name: Name;
+  user: TUser;
+  name: TName;
   gender: string;
   dateOfBirth: string;
   email: string;
@@ -58,8 +58,8 @@ export interface TStudent {
   bloodGroup: string;
   presentAddress: string;
   permanentAddress: string;
-  gurdian: Gurdian;
-  localGuardians: LocalGuardians;
+  gurdian: TGurdian;
+  localGuardians: TLocalGuardians;
   profileImg: string;
   admissionSemester: Partial<TAcademicSemester>;
   academicDepartment: Partial<TAcademicDepertment>;
@@ -73,8 +73,8 @@ export interface TStudent {
 export interface TFaculty {
   _id: string;
   id: string;
-  user: User;
-  name: Name;
+  user: TUser;
+  name: TName;
   gender: string;
   dateOfBirth: string;
   email: string;
@@ -96,8 +96,8 @@ export interface TFaculty {
 export interface TAdmin {
   _id: string;
   id: string;
-  user: User;
-  name: Name;
+  user: TUser;
+  name: TName;
   gender: string;
   dateOfBirth: string;
   email: string;

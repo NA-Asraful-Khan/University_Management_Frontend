@@ -23,6 +23,21 @@ const userManagementApi = baseApi.injectEndpoints({
       },
       providesTags: [{ type: "student" }],
     }),
+    getSinglelStudent: builder.query({
+      query: (params) => {
+        console.log(params);
+        return {
+          url: `/students/${params}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TStudent>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "student" }],
+    }),
     getAllStudentsByPagination: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -56,6 +71,18 @@ const userManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "student" }],
     }),
+    updateStudent: builder.mutation({
+      query: ({ data, id }) => {
+        console.log(data, id);
+        return {
+          url: `students/${id}`,
+          method: "PATCH",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "student" }],
+    }),
+
     getAllFaculty: builder.query({
       query: () => {
         return {
@@ -151,13 +178,25 @@ const userManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "admin" }],
     }),
+
+    changeUserStatus: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/users/change-status/${id}`,
+          method: "POST",
+        };
+      },
+      invalidatesTags: [{ type: "student" }],
+    }),
   }),
 });
 
 export const {
   useGetAllStudentsQuery,
+  useGetSinglelStudentQuery,
   useGetAllStudentsByPaginationQuery,
   useAddStudentMutation,
+  useUpdateStudentMutation,
 
   useGetAllFacultyQuery,
   useGetAllFacultyByPaginationQuery,
@@ -166,4 +205,6 @@ export const {
   useGetAllAdminQuery,
   useGetAllAdminByPaginationQuery,
   useAddAdminMutation,
+
+  useChangeUserStatusMutation,
 } = userManagementApi;
