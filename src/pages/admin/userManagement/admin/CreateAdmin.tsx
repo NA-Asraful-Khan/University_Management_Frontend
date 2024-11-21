@@ -1,20 +1,50 @@
-import { FieldValues } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import CustomForm from "../../../../components/form/CustomForm";
 import { adminDefaultValues } from "../../../../constants/default";
-import { Button, Col, Divider, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import CustomInput from "../../../../components/form/CustomInput";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAddAdminMutation } from "../../../../redux/features/admin/userManagement.api";
+import { toast } from "sonner";
+import { TAdmin, TResponse } from "../../../../types";
 
 const CreateAdmin = () => {
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
-    // const formData = new FormData();
+  const navigate = useNavigate();
+  const [addAdmin] = useAddAdminMutation();
 
-    // formData.append("data", JSON.stringify(data));
+  // Submit Form Handler
+  const onSubmit = async (data: FieldValues) => {
+    const toastId = toast.loading("Creating... ");
+    try {
+      const adminData = {
+        admin: data,
+      };
+      const formData = new FormData();
 
+      formData.append("data", JSON.stringify(adminData));
+      formData.append("file", data.image);
+
+      const res = (await addAdmin(formData)) as TResponse<TAdmin>;
+
+      if (!res.error) {
+        toast.success("Admin created successfully", {
+          id: toastId,
+        });
+        navigate(`/admin/admin-list`);
+      } else {
+        toast.error(res.error.data.message, {
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong", {
+        id: toastId,
+      });
+      console.error(error);
+    }
     // //! This is for Development
     // console.log(Object.fromEntries(formData));
   };
@@ -43,6 +73,22 @@ const CreateAdmin = () => {
         </Col>
         <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
           <CustomSelect name="gender" label="Gender" options={genderOptions} />
+        </Col>
+
+        <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
+          <Controller
+            name="image"
+            render={({ field: { onChange, value, ...field } }) => (
+              <Form.Item label="Picture">
+                <Input
+                  type="file"
+                  value={value?.fileName}
+                  {...field}
+                  onChange={(e) => onChange(e.target.files?.[0])}
+                />
+              </Form.Item>
+            )}
+          />
         </Col>
       </Row>
 

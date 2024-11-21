@@ -13,6 +13,8 @@ import { TAcademicSemester, TResponse } from "../../../../types";
 const CreateAcademicSemester = () => {
   const navigate = useNavigate();
   const [addAcademicSemester] = useAddAcademicSemesterMutation();
+
+  // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Creating... ");
     try {

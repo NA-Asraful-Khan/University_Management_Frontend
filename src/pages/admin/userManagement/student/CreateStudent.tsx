@@ -38,6 +38,8 @@ const CreateStudent = () => {
       value: String(_id),
       label: String(name),
     })) || [];
+
+  // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Creating... ");
     console.log(data);
@@ -53,7 +55,7 @@ const CreateStudent = () => {
       const res = (await addStudent(formData)) as TResponse<TStudent>;
 
       if (!res.error) {
-        toast.success("Academic Depertment created successfully", {
+        toast.success("Student created successfully", {
           id: toastId,
         });
         navigate(`/admin/student-list`);

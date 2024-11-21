@@ -12,6 +12,8 @@ import { Link, useNavigate } from "react-router-dom";
 const CreateAcademicFaculty = () => {
   const navigate = useNavigate();
   const [addAcademicFaculty] = useAddAcademicFacultyMutation();
+
+  // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Creating... ");
 
