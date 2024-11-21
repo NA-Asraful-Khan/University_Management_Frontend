@@ -14,6 +14,8 @@ import { TResponse, TSelectOptions, TStudent } from "../../../../types";
 import { useAddStudentMutation } from "../../../../redux/features/admin/userManagement.api";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { studentSchema } from "../../../../schemas/userManagement.schema";
 
 const CreateStudent = () => {
   const navigate = useNavigate();
@@ -71,7 +73,11 @@ const CreateStudent = () => {
     // console.log(Object.fromEntries(formData));
   };
   return (
-    <CustomForm onSubmit={onSubmit} defaultValues={studentDefaultValues}>
+    <CustomForm
+      onSubmit={onSubmit}
+      defaultValues={studentDefaultValues}
+      resolver={zodResolver(studentSchema)}
+    >
       <Divider orientation="left">Personal Info</Divider>
       <Row gutter={16} justify="start" align="middle">
         <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>

@@ -8,7 +8,7 @@ export type TTableData = Pick<TStudent, "name" | "id">;
 const StudentList = () => {
   const { pathname } = useLocation();
 
-  // Get Faculty Data
+  // Get Student Data
   const {
     data: studentData,
     isLoading,
@@ -32,6 +32,11 @@ const StudentList = () => {
       render: (_: any, __: TTableData, index: number) => index + 1, // Generate index
     },
     {
+      title: "ID",
+      dataIndex: ["id"], // Access nested field
+      key: "id",
+    },
+    {
       title: "Name",
       dataIndex: "name",
       key: "name",
@@ -39,11 +44,7 @@ const StudentList = () => {
       // sorter: (a, b) => a.name.length - b.name.length,
       sortDirections: ["descend"],
     },
-    {
-      title: "Faculty",
-      dataIndex: ["academicFaculty", "name"], // Access nested field
-      key: "academicFaculty.name",
-    },
+
     {
       title: "Action",
       key: "x",

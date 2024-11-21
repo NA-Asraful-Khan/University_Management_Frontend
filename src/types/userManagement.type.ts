@@ -69,3 +69,47 @@ export interface TStudent {
   __v: number;
   fullName: string;
 }
+
+export interface TFaculty {
+  _id: string;
+  id: string;
+  user: User;
+  name: Name;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  designation: string;
+  academicDepartment: Partial<TAcademicDepertment>;
+  academicFaculty: Partial<TAcademicFaculty>;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  fullName: string;
+}
+
+export interface TAdmin {
+  _id: string;
+  id: string;
+  user: User;
+  name: Name;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  designation: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  fullName: string;
+}
