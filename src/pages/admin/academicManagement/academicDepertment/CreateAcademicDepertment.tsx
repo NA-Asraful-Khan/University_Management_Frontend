@@ -1,4 +1,4 @@
-import { Button, Col, Flex } from "antd";
+import { Button, Col, Flex, Space } from "antd";
 import CustomForm from "../../../../components/form/CustomForm";
 import { FieldValues } from "react-hook-form";
 import { academicDepertmentSchema } from "../../../../schemas/academicManagement.schema";
@@ -15,7 +15,7 @@ import {
   TSelectOptions,
 } from "../../../../types";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateAcademicDepertment = () => {
   const navigate = useNavigate();
@@ -73,10 +73,12 @@ const CreateAcademicDepertment = () => {
             options={facultiesOptions}
             label="Faculties"
           />
-          <Button htmlType="submit">Create</Button>
-          <Link className="ml-2" to={`/admin/academic-depertment`}>
-            <Button>Cancel</Button>
-          </Link>
+          <Space>
+            <Button type="primary" htmlType="submit">
+              Create
+            </Button>
+            <Button onClick={() => navigate(-1)}>Cancel</Button>
+          </Space>
         </CustomForm>
       </Col>
     </Flex>

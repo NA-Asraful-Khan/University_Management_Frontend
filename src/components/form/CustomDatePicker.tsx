@@ -1,11 +1,28 @@
 import { DatePicker, Form } from "antd";
+import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 type TDatePickerProps = {
   label?: string;
   name: string;
+  defaultValue?: string | undefined;
 };
-const CustomDatePicker = ({ label, name }: TDatePickerProps) => {
+
+dayjs.extend(customParseFormat);
+
+const dateFormat = "YYYY/MM/DD";
+const CustomDatePicker = ({ label, name, defaultValue }: TDatePickerProps) => {
+  console.log(defaultValue);
+  const date = defaultValue ? new Date(defaultValue) : new Date();
+
+  const formattedDate =
+    date.getFullYear() +
+    "/" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "/" +
+    String(date.getDate()).padStart(2, "0");
+
   return (
     <div>
       <Controller
@@ -17,6 +34,8 @@ const CustomDatePicker = ({ label, name }: TDatePickerProps) => {
               {...field}
               className="border border-1 border-black rounded"
               size="middle"
+              defaultValue={dayjs(formattedDate, dateFormat)}
+              format={dateFormat}
             />
             {error && <small className="text-red-600">{error.message}</small>}
           </Form.Item>

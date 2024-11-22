@@ -35,7 +35,6 @@ const UpdateStudent = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { dateOfBirth, ...defaultData } = studentData?.data || {};
-
   //Get Semester Options
   const { data: semesterData, isLoading: sIsLoading } =
     useGetAllSemestersQuery(undefined);
@@ -135,7 +134,11 @@ const UpdateStudent = () => {
               />
             </Col>
             <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
-              <CustomDatePicker name="dateOfBirth" label="Date Of Birt" />
+              <CustomDatePicker
+                defaultValue={dateOfBirth}
+                name="dateOfBirth"
+                label="Date Of Birth"
+              />
             </Col>
             <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
               <CustomSelect

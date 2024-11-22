@@ -5,6 +5,7 @@ import CreateAdmin from "../pages/admin/userManagement/admin/CreateAdmin";
 import {
   DashboardOutlined,
   MacCommandFilled,
+  SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import CreateAcademicSemester from "../pages/admin/academicManagement/academicSemester/CreateAcademicSemester";
@@ -19,6 +20,10 @@ import FacultyList from "../pages/admin/userManagement/faculty/FacultyList";
 import AdminList from "../pages/admin/userManagement/admin/AdminList";
 import StudentDetails from "../pages/admin/userManagement/student/StudentDetails";
 import UpdateStudent from "../pages/admin/userManagement/student/UpdateStudent";
+import RegisteredSemister from "../pages/admin/courseManagement/semesterRegistration/RegisteredSemester";
+import SemesterRegistration from "../pages/admin/courseManagement/semesterRegistration/SemesterRegistration";
+import Courses from "../pages/admin/courseManagement/course/Courses";
+import CreateCourses from "../pages/admin/courseManagement/course/CreateCourses";
 
 export const adminPaths = [
   {
@@ -147,6 +152,45 @@ export const adminPaths = [
             name: "Create A. Depertment",
             path: "create-academic-depertment",
             element: <CreateAcademicDepertment />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "Course Management",
+    path: "",
+    icon: <SettingOutlined />,
+    children: [
+      {
+        name: "Registerd Semester",
+        path: "registered-semester",
+        children: [
+          {
+            name: "registered-semester",
+            path: "",
+            element: <RegisteredSemister />,
+          },
+          {
+            name: "Create Semester Registration",
+            path: "create-semester-registration",
+            element: <SemesterRegistration />,
+          },
+        ],
+      },
+      {
+        name: "Course",
+        path: "courses",
+        children: [
+          {
+            name: "courses",
+            path: "",
+            element: <Courses />,
+          },
+          {
+            name: "Create Course",
+            path: "create-course",
+            element: <CreateCourses />,
           },
         ],
       },

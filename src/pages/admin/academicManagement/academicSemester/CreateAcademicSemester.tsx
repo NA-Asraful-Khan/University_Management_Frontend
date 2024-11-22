@@ -1,13 +1,13 @@
 import { FieldValues } from "react-hook-form";
 import CustomForm from "../../../../components/form/CustomForm";
-import { Button, Col, Flex } from "antd";
+import { Button, Col, Flex, Space } from "antd";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { SemesterOptions, yearOptions } from "../../../../constants/semester";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "../../../../schemas/academicManagement.schema";
 import { useAddAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TAcademicSemester, TResponse } from "../../../../types";
 
 const CreateAcademicSemester = () => {
@@ -53,10 +53,12 @@ const CreateAcademicSemester = () => {
             label="Semester"
           />
           <CustomSelect name="year" options={yearOptions} label="Year" />
-          <Button htmlType="submit">Create</Button>
-          <Link className="ml-2" to={`/admin/academic-semester`}>
-            <Button>Cancel</Button>
-          </Link>
+          <Space>
+            <Button type="primary" htmlType="submit">
+              Create
+            </Button>
+            <Button onClick={() => navigate(-1)}>Cancel</Button>
+          </Space>
         </CustomForm>
       </Col>
     </Flex>

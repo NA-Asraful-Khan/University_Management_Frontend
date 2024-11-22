@@ -118,6 +118,7 @@ const StudentList = () => {
           </button>
         );
       },
+      width: "1%",
     },
 
     {

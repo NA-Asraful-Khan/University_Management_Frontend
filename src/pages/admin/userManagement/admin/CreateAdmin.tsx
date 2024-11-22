@@ -1,12 +1,12 @@
 import { Controller, FieldValues } from "react-hook-form";
 import CustomForm from "../../../../components/form/CustomForm";
 import { adminDefaultValues } from "../../../../constants/default";
-import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row, Space } from "antd";
 import CustomInput from "../../../../components/form/CustomInput";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAddAdminMutation } from "../../../../redux/features/admin/userManagement.api";
 import { toast } from "sonner";
 import { TAdmin, TResponse } from "../../../../types";
@@ -130,12 +130,12 @@ const CreateAdmin = () => {
         </Col>
       </Row>
 
-      <Button type="primary" htmlType="submit">
-        Create
-      </Button>
-      <Link className="ml-2" to={`/admin/admin-list`}>
-        <Button>Cancel</Button>
-      </Link>
+      <Space>
+        <Button type="primary" htmlType="submit">
+          Create
+        </Button>
+        <Button onClick={() => navigate(-1)}>Cancel</Button>
+      </Space>
     </CustomForm>
   );
 };

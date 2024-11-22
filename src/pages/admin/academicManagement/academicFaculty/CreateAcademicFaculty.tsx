@@ -1,4 +1,4 @@
-import { Button, Col, Flex } from "antd";
+import { Button, Col, Flex, Space } from "antd";
 import CustomForm from "../../../../components/form/CustomForm";
 import { FieldValues } from "react-hook-form";
 import { academicFacultySchema } from "../../../../schemas/academicManagement.schema";
@@ -7,7 +7,7 @@ import CustomInput from "../../../../components/form/CustomInput";
 import { toast } from "sonner";
 import { TAcademicFaculty, TResponse } from "../../../../types";
 import { useAddAcademicFacultyMutation } from "../../../../redux/features/admin/academicManagement.api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateAcademicFaculty = () => {
   const navigate = useNavigate();
@@ -47,10 +47,12 @@ const CreateAcademicFaculty = () => {
           resolver={zodResolver(academicFacultySchema)}
         >
           <CustomInput type={"text"} name={"name"} label={"Academic Faculty"} />
-          <Button htmlType="submit">Create</Button>
-          <Link className="ml-2" to={`/admin/academic-faculty`}>
-            <Button>Cancel</Button>
-          </Link>
+          <Space>
+            <Button type="primary" htmlType="submit">
+              Create
+            </Button>
+            <Button onClick={() => navigate(-1)}>Cancel</Button>
+          </Space>
         </CustomForm>
       </Col>
     </Flex>

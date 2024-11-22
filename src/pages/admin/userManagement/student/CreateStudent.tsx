@@ -1,7 +1,7 @@
 import { Controller, FieldValues } from "react-hook-form";
 import CustomForm from "../../../../components/form/CustomForm";
 import CustomInput from "../../../../components/form/CustomInput";
-import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row, Space } from "antd";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
@@ -13,7 +13,7 @@ import {
 import { TResponse, TSelectOptions, TStudent } from "../../../../types";
 import { useAddStudentMutation } from "../../../../redux/features/admin/userManagement.api";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { studentSchema } from "../../../../schemas/userManagement.schema";
 
@@ -246,12 +246,12 @@ const CreateStudent = () => {
         </Col>
       </Row>
 
-      <Button type="primary" htmlType="submit">
-        Create
-      </Button>
-      <Link className="ml-2" to={`/admin/student-list`}>
-        <Button>Cancel</Button>
-      </Link>
+      <Space>
+        <Button type="primary" htmlType="submit">
+          Create
+        </Button>
+        <Button onClick={() => navigate(-1)}>Cancel</Button>
+      </Space>
     </CustomForm>
   );
 };

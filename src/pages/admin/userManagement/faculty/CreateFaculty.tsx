@@ -2,13 +2,13 @@ import { Controller, FieldValues } from "react-hook-form";
 import { useGetAllAcademicDepertmentQuery } from "../../../../redux/features/admin/academicManagement.api";
 import { TFaculty, TResponse, TSelectOptions } from "../../../../types";
 import CustomForm from "../../../../components/form/CustomForm";
-import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row, Space } from "antd";
 import CustomInput from "../../../../components/form/CustomInput";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
 import { facultyDefaultValues } from "../../../../constants/default";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAddFacultyMutation } from "../../../../redux/features/admin/userManagement.api";
 
@@ -148,12 +148,12 @@ const CreateFaculty = () => {
         </Col>
       </Row>
 
-      <Button type="primary" htmlType="submit">
-        Create
-      </Button>
-      <Link className="ml-2" to={`/admin/faculty-list`}>
-        <Button>Cancel</Button>
-      </Link>
+      <Space>
+        <Button type="primary" htmlType="submit">
+          Create
+        </Button>
+        <Button onClick={() => navigate(-1)}>Cancel</Button>
+      </Space>
     </CustomForm>
   );
 };
