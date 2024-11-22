@@ -15,12 +15,15 @@ export type TTableData = Pick<
 const AcademicSemester = () => {
   const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
   const { pathname } = useLocation();
+
+  //& Get Semester Data
   const {
     data: semesterData,
     isLoading,
     isFetching,
   } = useGetAllSemestersByPaginationQuery(params);
 
+  //& Table Data
   const tableData = semesterData?.data?.map(
     ({ _id, name, startMonth, endMonth, year }) => ({
       key: _id,
@@ -31,6 +34,7 @@ const AcademicSemester = () => {
     })
   );
 
+  //& Table Columns
   const columns: TableColumnsType<TTableData> = [
     {
       title: "#",
@@ -138,6 +142,7 @@ const AcademicSemester = () => {
     },
   ];
 
+  //& Filter Colum
   const onChange: TableProps<TTableData>["onChange"] = (
     pagination,
     filters,

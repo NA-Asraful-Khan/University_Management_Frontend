@@ -3,17 +3,23 @@ import CustomForm from "../../../../components/form/CustomForm";
 import CustomInput from "../../../../components/form/CustomInput";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import { FieldValues } from "react-hook-form";
-import { TSelectOptions } from "../../../../types";
+import {
+  TResponse,
+  TSelectOptions,
+  TSemesterRegistration,
+} from "../../../../types";
 import { useNavigate } from "react-router-dom";
 import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagement.api";
 import { SemesterStatusOption } from "../../../../constants/semester";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
+import { useAddSemesterRegistrationMutation } from "../../../../redux/features/admin/courseManagement.api";
+import { toast } from "sonner";
 
 const SemesterRegistration = () => {
   const navigate = useNavigate();
 
-  // Call Add Depertment Hook
-  // const [addAcademicDepertment] = useAddAcademicDepertmentMutation();
+  // Call Add Semester Registration Hook
+  const [addSemesterRegistration] = useAddSemesterRegistrationMutation();
 
   // Get Faculty Data
   const { data: academicSemester } = useGetAllSemestersQuery(undefined);
@@ -27,30 +33,35 @@ const SemesterRegistration = () => {
 
   // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
-    // const toastId = toast.loading("Creating... ");
+    const toastId = toast.loading("Creating... ");
 
-    // try {
-    //   const res = (await addAcademicDepertment(
-    //     data
-    //   )) as TResponse<TAcademicDepertment>;
+    // Refactor Submitted Data
+    const submittedData = {
+      ...data,
+      minCredit: Number(data?.minCredit),
+      maxCredit: Number(data?.maxCredit),
+    };
+    try {
+      const res = (await addSemesterRegistration(
+        submittedData
+      )) as TResponse<TSemesterRegistration>;
 
-    //   if (!res.error) {
-    //     toast.success("Academic Depertment created successfully", {
-    //       id: toastId,
-    //     });
-    //     navigate(`/admin/academic-depertment`);
-    //   } else {
-    //     toast.error(res.error.data.message, {
-    //       id: toastId,
-    //     });
-    //   }
-    // } catch (error) {
-    //   toast.error("Something went wrong", {
-    //     id: toastId,
-    //   });
-    //   console.error(error);
-    // }
+      if (!res.error) {
+        toast.success("Academic Depertment created successfully", {
+          id: toastId,
+        });
+        navigate(`/admin/registered-semester`);
+      } else {
+        toast.error(res.error.data.message, {
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong", {
+        id: toastId,
+      });
+      console.error(error);
+    }
   };
   return (
     <CustomForm
@@ -62,7 +73,7 @@ const SemesterRegistration = () => {
           <CustomSelect
             name="academicSemester"
             options={semesterOption}
-            label="Faculties"
+            label="Academic Semester"
           />
         </Col>
         <Col xs={{ span: 24 }} md={{ span: 12 }}>

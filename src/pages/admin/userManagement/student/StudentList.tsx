@@ -104,7 +104,6 @@ const StudentList = () => {
       dataIndex: ["user"], // Access nested field
 
       render: (user) => {
-        console.log(user);
         return (
           <button
             onClick={() => changeStatus(user?.id)}
@@ -118,7 +117,6 @@ const StudentList = () => {
           </button>
         );
       },
-      width: "1%",
     },
 
     {
@@ -149,7 +147,6 @@ const StudentList = () => {
   ) => {
     setPageSize(pageSize);
   };
-  console.log(page);
   return (
     <div>
       <div className="flex justify-between items-center font-bold">

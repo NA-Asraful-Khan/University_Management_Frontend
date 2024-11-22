@@ -24,6 +24,7 @@ import RegisteredSemister from "../pages/admin/courseManagement/semesterRegistra
 import SemesterRegistration from "../pages/admin/courseManagement/semesterRegistration/SemesterRegistration";
 import Courses from "../pages/admin/courseManagement/course/Courses";
 import CreateCourses from "../pages/admin/courseManagement/course/CreateCourses";
+import UpdateRegisteredSemester from "../pages/admin/courseManagement/semesterRegistration/UpdateRegisteredSemester";
 
 export const adminPaths = [
   {
@@ -175,6 +176,11 @@ export const adminPaths = [
             name: "Create Semester Registration",
             path: "create-semester-registration",
             element: <SemesterRegistration />,
+          },
+          {
+            name: "Create Semester Registration",
+            path: ":registrationId/edit",
+            element: <UpdateRegisteredSemester />,
           },
         ],
       },
