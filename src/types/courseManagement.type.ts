@@ -12,3 +12,16 @@ export interface TSemesterRegistration {
   updatedAt: string;
   __v: number;
 }
+
+export interface TCourse {
+  _id: string;
+  title: string;
+  prefix: string;
+  code: string;
+  credits: number;
+  isDeleted: boolean;
+  preRequisiteCourses: any[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

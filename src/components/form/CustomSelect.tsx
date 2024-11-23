@@ -7,16 +7,23 @@ type TSelectProps = {
   options: TSelectOptions[];
   name: string;
   disabled?: boolean;
+  mode?: "multiple" | undefined;
 };
-const CustomSelect = ({ disabled, options, label, name }: TSelectProps) => {
+const CustomSelect = ({
+  disabled,
+  options,
+  label,
+  name,
+  mode,
+}: TSelectProps) => {
   return (
     <Controller
       name={name}
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
+            mode={mode}
             className="border border-1 border-black rounded"
-            defaultValue=""
             style={{ width: "100%" }}
             {...field}
             allowClear

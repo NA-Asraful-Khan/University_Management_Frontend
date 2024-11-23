@@ -1,4 +1,5 @@
 import {
+  TCourse,
   TQueryParam,
   TResponseRedux,
   TSemesterRegistration,
@@ -82,6 +83,78 @@ const courseManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "semesterRegistration" }],
     }),
+
+    getAllCourses: builder.query({
+      query: () => {
+        return {
+          url: "/course",
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TCourse[]>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "course" }],
+    }),
+    getSinglelCourse: builder.query({
+      query: (params) => {
+        return {
+          url: `/course/${params}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TCourse>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "course" }],
+    }),
+    getAllCoursesByPagination: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: `course/pagination`,
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TCourse[]>) => {
+        return {
+          data: response.data,
+          pagination: response.pagination,
+        };
+      },
+      providesTags: [{ type: "course" }],
+    }),
+    addCourse: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/course/create-course",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "course" }],
+    }),
+    updateCourse: builder.mutation({
+      query: (data) => {
+        return {
+          url: `/course/${data?.id}`,
+          method: "PATCH",
+          body: data?.status,
+        };
+      },
+      invalidatesTags: [{ type: "course" }],
+    }),
   }),
 });
 
@@ -91,4 +164,10 @@ export const {
   useGetAllRegisteredSemesterByPaginationQuery,
   useAddSemesterRegistrationMutation,
   useUpdateSemesterRegistrationMutation,
+
+  useGetAllCoursesQuery,
+  useGetSinglelCourseQuery,
+  useGetAllCoursesByPaginationQuery,
+  useAddCourseMutation,
+  useUpdateCourseMutation,
 } = courseManagementApi;

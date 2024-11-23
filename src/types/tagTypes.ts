@@ -6,4 +6,6 @@ export const tagTypes = [
   "faculty",
   "admin",
   "semesterRegistration",
+  "course",
+  "offeredCourse",
 ];
