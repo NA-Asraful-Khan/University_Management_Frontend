@@ -23,6 +23,20 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
       providesTags: [{ type: "academicsemester" }],
     }),
+    getSinglelSemester: builder.query({
+      query: (params) => {
+        return {
+          url: `/academic-semesters/${params}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAcademicSemester>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "academicsemester" }],
+    }),
     getAllSemestersByPagination: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -52,6 +66,16 @@ const academicManagementApi = baseApi.injectEndpoints({
         return {
           url: "/academic-semesters",
           method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "academicsemester" }],
+    }),
+    updateAcademicSemester: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `/academic-semesters/${id}`,
+          method: "PUT",
           body: data,
         };
       },
@@ -158,8 +182,11 @@ const academicManagementApi = baseApi.injectEndpoints({
 
 export const {
   useGetAllSemestersQuery,
+  useGetSinglelSemesterQuery,
   useGetAllSemestersByPaginationQuery,
   useAddAcademicSemesterMutation,
+  useUpdateAcademicSemesterMutation,
+
   useGetAllAcademicFacultyQuery,
   useGetAllAcademicFacultyByPaginationQuery,
   useAddAcademicFacultyMutation,

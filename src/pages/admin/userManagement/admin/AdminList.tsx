@@ -14,7 +14,6 @@ const AdminList = () => {
     isLoading,
     isFetching,
   } = useGetAllAdminByPaginationQuery(undefined);
-  console.log(isLoading, isFetching, adminData);
 
   // Table Data
   const tableData: TTableData[] =

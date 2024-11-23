@@ -9,6 +9,7 @@ import { baseApi } from "../../api/baseApi";
 
 const userManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //& Student Hook Start
     getAllStudents: builder.query({
       query: () => {
         return {
@@ -25,7 +26,6 @@ const userManagementApi = baseApi.injectEndpoints({
     }),
     getSinglelStudent: builder.query({
       query: (params) => {
-        console.log(params);
         return {
           url: `/students/${params}`,
           method: "GET",
@@ -73,16 +73,23 @@ const userManagementApi = baseApi.injectEndpoints({
     }),
     updateStudent: builder.mutation({
       query: ({ data, id }) => {
-        console.log(data, id);
         return {
           url: `students/${id}`,
           method: "PATCH",
-          body: data,
+          body: data, // Ensure `data` is a FormData object
         };
       },
       invalidatesTags: [{ type: "student" }],
     }),
+    deleteStudent: builder.mutation({
+      query: (id) => ({
+        url: `students/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "student" }],
+    }),
 
+    //& Faculty Hook Start
     getAllFaculty: builder.query({
       query: () => {
         return {
@@ -131,6 +138,7 @@ const userManagementApi = baseApi.injectEndpoints({
       invalidatesTags: [{ type: "faculty" }],
     }),
 
+    //& Admin Hook Start
     getAllAdmin: builder.query({
       query: () => {
         return {
@@ -197,6 +205,7 @@ export const {
   useGetAllStudentsByPaginationQuery,
   useAddStudentMutation,
   useUpdateStudentMutation,
+  useDeleteStudentMutation,
 
   useGetAllFacultyQuery,
   useGetAllFacultyByPaginationQuery,

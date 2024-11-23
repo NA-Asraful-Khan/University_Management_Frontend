@@ -12,7 +12,6 @@ import CreateAcademicSemester from "../pages/admin/academicManagement/academicSe
 import AcademicSemester from "../pages/admin/academicManagement/academicSemester/AcademicSemester";
 import CreateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/CreateAcademicFaculty";
 import AcademicFaculty from "../pages/admin/academicManagement/academicFaculty/AcademicFaculty";
-import UpdateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/UpdateAcademicFaculty";
 import AcademicDepertment from "../pages/admin/academicManagement/academicDepertment/AcademicDepertment";
 import CreateAcademicDepertment from "../pages/admin/academicManagement/academicDepertment/CreateAcademicDepertment";
 import StudentList from "../pages/admin/userManagement/student/StudentList";
@@ -25,6 +24,7 @@ import SemesterRegistration from "../pages/admin/courseManagement/semesterRegist
 import Courses from "../pages/admin/courseManagement/course/Courses";
 import CreateCourses from "../pages/admin/courseManagement/course/CreateCourses";
 import UpdateRegisteredSemester from "../pages/admin/courseManagement/semesterRegistration/UpdateRegisteredSemester";
+import UpdateAcademicSemester from "../pages/admin/academicManagement/academicSemester/UpdateAcademicSemester";
 
 export const adminPaths = [
   {
@@ -118,9 +118,9 @@ export const adminPaths = [
             element: <CreateAcademicSemester />,
           },
           {
-            name: "Update A. Semester",
-            path: ":id",
-            element: <UpdateAcademicFaculty />,
+            name: "Create A. Semester",
+            path: ":semesterId/edit",
+            element: <UpdateAcademicSemester />,
           },
         ],
       },

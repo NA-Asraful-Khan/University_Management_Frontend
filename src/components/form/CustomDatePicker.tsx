@@ -13,7 +13,6 @@ dayjs.extend(customParseFormat);
 
 const dateFormat = "YYYY/MM/DD";
 const CustomDatePicker = ({ label, name, defaultValue }: TDatePickerProps) => {
-  console.log(defaultValue);
   const date = defaultValue ? new Date(defaultValue) : new Date();
 
   const formattedDate =

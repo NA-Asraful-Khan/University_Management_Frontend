@@ -14,7 +14,6 @@ const FacultyList = () => {
     isLoading,
     isFetching,
   } = useGetAllFacultyByPaginationQuery(undefined);
-  console.log(isLoading, isFetching, facultyData);
 
   // Table Data
   const tableData: TTableData[] =

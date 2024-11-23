@@ -18,7 +18,6 @@ const AcademicDepertment = () => {
     isLoading,
     isFetching,
   } = useGetAllAcademicDepertmentByPaginationQuery(undefined);
-  console.log(isLoading, isFetching, academicDepertmentData);
 
   // Table Data
   const tableData: TTableData[] =

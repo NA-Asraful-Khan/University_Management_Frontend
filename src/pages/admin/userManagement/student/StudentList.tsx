@@ -15,6 +15,7 @@ import {
 } from "@ant-design/icons";
 import {
   useChangeUserStatusMutation,
+  useDeleteStudentMutation,
   useGetAllStudentsByPaginationQuery,
 } from "../../../../redux/features/admin/userManagement.api";
 import { useState } from "react";
@@ -36,6 +37,7 @@ const StudentList = () => {
   const { pathname } = useLocation();
   //Change Status Hook
   const [changeStatus] = useChangeUserStatusMutation();
+  const [deleteStudent] = useDeleteStudentMutation();
 
   // Get Student Data
   const {
@@ -51,12 +53,10 @@ const StudentList = () => {
 
   //Meta Data
   const pagination = studentData?.pagination;
-  console.log(isLoading, isFetching, studentData);
 
   // Table Data
   const tableData: TTableData[] =
     studentData?.data?.map(({ _id, fullName, id, email, contactNo, user }) => {
-      console.log(user);
       return {
         key: _id,
         fullName,
@@ -123,6 +123,7 @@ const StudentList = () => {
       title: "Action",
       key: "x",
       render: (item) => {
+        console.log(item);
         return (
           <Space>
             <Link to={`/admin/student-list/${item.id}`}>
@@ -131,9 +132,7 @@ const StudentList = () => {
             <Link to={`/admin/student-list/${item.id}/edit`}>
               <EditOutlined />
             </Link>
-            <Button>
-              <DeleteOutlined />
-            </Button>
+            <DeleteOutlined onClick={() => deleteStudent(item?.id)} />
           </Space>
         );
       },

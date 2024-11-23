@@ -76,7 +76,6 @@ const RegisteredSemester = () => {
 
   //& Pagination Data
   const pagination = registeredSemesterData?.pagination;
-  console.log(isLoading, isFetching, registeredSemesterData);
 
   //& Table Data
   const tableData: TTableData[] =
