@@ -27,6 +27,10 @@ import UpdateRegisteredSemester from "../pages/admin/courseManagement/semesterRe
 import UpdateAcademicSemester from "../pages/admin/academicManagement/academicSemester/UpdateAcademicSemester";
 import UpdateAcademicDepertment from "../pages/admin/academicManagement/academicDepertment/UpdateAcademicDepertment";
 import UpdateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/UpdateAcademicFaculty";
+import FacultyDetails from "../pages/admin/userManagement/faculty/FacultyDetails";
+import UpdateFaculty from "../pages/admin/userManagement/faculty/UpdateFaculty";
+import AdminDetails from "../pages/admin/userManagement/admin/AdminDetails";
+import UpdateAdmin from "../pages/admin/userManagement/admin/UpdateAdmin";
 
 export const adminPaths = [
   {
@@ -126,6 +130,16 @@ export const adminPaths = [
             path: "create-admin",
             element: <CreateAdmin />,
           },
+          {
+            name: "Admin Details",
+            path: ":adminID",
+            element: <AdminDetails />,
+          },
+          {
+            name: "Admin Update",
+            path: ":adminID/edit",
+            element: <UpdateAdmin />,
+          },
         ],
       },
       {
@@ -141,6 +155,16 @@ export const adminPaths = [
             name: "Create Faculty",
             path: "create-faculty",
             element: <CreateFaculty />,
+          },
+          {
+            name: "Faculty Details",
+            path: ":facultyID",
+            element: <FacultyDetails />,
+          },
+          {
+            name: "Faculty Update",
+            path: ":facultyID/edit",
+            element: <UpdateFaculty />,
           },
         ],
       },
@@ -164,7 +188,7 @@ export const adminPaths = [
             element: <StudentDetails />,
           },
           {
-            name: "Student Details",
+            name: "Student Update",
             path: ":studentId/edit",
             element: <UpdateStudent />,
           },

@@ -1,8 +1,19 @@
-import { Button, Table, TableColumnsType } from "antd";
+import {
+  Button,
+  Pagination,
+  PaginationProps,
+  Table,
+  TableColumnsType,
+} from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { useGetAllAcademicDepertmentByPaginationQuery } from "../../../../redux/features/admin/academicManagement.api";
-import { TAcademicDepertment, TAcademicFaculty } from "../../../../types";
+import {
+  TAcademicDepertment,
+  TAcademicFaculty,
+  TQueryParam,
+} from "../../../../types";
 import { EditOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
 export type TTableData = Pick<TAcademicDepertment, "name"> & {
   academicFaculty: Pick<TAcademicFaculty, "name"> & {
@@ -10,14 +21,26 @@ export type TTableData = Pick<TAcademicDepertment, "name"> & {
   };
 };
 const AcademicDepertment = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [params, setParams] = useState<TQueryParam[]>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const { pathname } = useLocation();
 
-  // Get Faculty Data
+  // Get Adacemic DepertmentData Data
   const {
     data: academicDepertmentData,
     isLoading,
     isFetching,
-  } = useGetAllAcademicDepertmentByPaginationQuery(undefined);
+  } = useGetAllAcademicDepertmentByPaginationQuery([
+    { name: "limit", value: pageSize },
+    { name: "page", value: page },
+    { name: "sort", value: "-id" },
+    ...params,
+  ]);
+
+  //pagination Data
+  const pagination = academicDepertmentData?.pagination;
 
   // Table Data
   const tableData: TTableData[] =
@@ -61,6 +84,13 @@ const AcademicDepertment = () => {
       },
     },
   ];
+
+  const onShowSizeChange: PaginationProps["onShowSizeChange"] = (
+    current,
+    pageSize
+  ) => {
+    setPageSize(pageSize);
+  };
   return (
     <div>
       <div className="flex justify-between items-center font-bold">
@@ -74,6 +104,23 @@ const AcademicDepertment = () => {
         columns={columns}
         dataSource={tableData}
         showSorterTooltip={{ target: "sorter-icon" }}
+        pagination={false}
+      />
+
+      <Pagination
+        showQuickJumper
+        showTotal={(total, range) =>
+          `${range[0]}-${range[1]} of ${total} items`
+        }
+        defaultCurrent={1}
+        total={pagination?.total}
+        pageSize={pagination?.limit}
+        // onChange={onChange}
+        onChange={(page) => {
+          setPage(page);
+        }}
+        showSizeChanger
+        onShowSizeChange={onShowSizeChange}
       />
     </div>
   );

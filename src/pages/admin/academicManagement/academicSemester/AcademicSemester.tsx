@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { Button, Table } from "antd";
+import { Button, Pagination, Table } from "antd";
 import { useGetAllSemestersByPaginationQuery } from "../../../../redux/features/admin/academicManagement.api";
 
-import type { TableColumnsType, TableProps } from "antd";
+import type { PaginationProps, TableColumnsType, TableProps } from "antd";
 import { TAcademicSemester, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
@@ -13,7 +13,10 @@ export type TTableData = Pick<
 >;
 
 const AcademicSemester = () => {
-  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [params, setParams] = useState<TQueryParam[]>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(2);
   const { pathname } = useLocation();
 
   //& Get Semester Data
@@ -21,7 +24,15 @@ const AcademicSemester = () => {
     data: semesterData,
     isLoading,
     isFetching,
-  } = useGetAllSemestersByPaginationQuery(params);
+  } = useGetAllSemestersByPaginationQuery([
+    { name: "limit", value: pageSize },
+    { name: "page", value: page },
+    { name: "sort", value: "-id" },
+    ...params,
+  ]);
+
+  //pagination Data
+  const pagination = semesterData?.pagination;
 
   //& Table Data
   const tableData = semesterData?.data?.map(
@@ -136,10 +147,11 @@ const AcademicSemester = () => {
           </div>
         );
       },
+      width: "1%",
     },
   ];
 
-  //& Filter Colum
+  //& Filter Handler
   const onChange: TableProps<TTableData>["onChange"] = (
     pagination,
     filters,
@@ -161,6 +173,13 @@ const AcademicSemester = () => {
       setParams(queryParams);
     }
   };
+  //& Pagination Handler
+  const onShowSizeChange: PaginationProps["onShowSizeChange"] = (
+    current,
+    pageSize
+  ) => {
+    setPageSize(pageSize);
+  };
 
   return (
     <div>
@@ -176,6 +195,23 @@ const AcademicSemester = () => {
         dataSource={tableData}
         onChange={onChange}
         showSorterTooltip={{ target: "sorter-icon" }}
+        pagination={false}
+      />
+
+      <Pagination
+        showQuickJumper
+        showTotal={(total, range) =>
+          `${range[0]}-${range[1]} of ${total} items`
+        }
+        defaultCurrent={1}
+        total={pagination?.total}
+        pageSize={pagination?.limit}
+        // onChange={onChange}
+        onChange={(page) => {
+          setPage(page);
+        }}
+        showSizeChanger
+        onShowSizeChange={onShowSizeChange}
       />
     </div>
   );

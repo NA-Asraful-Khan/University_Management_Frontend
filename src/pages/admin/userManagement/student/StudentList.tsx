@@ -8,11 +8,7 @@ import {
 } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { TQueryParam, TStudent, TUser } from "../../../../types";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import {
   useChangeUserStatusMutation,
   useDeleteStudentMutation,
@@ -29,13 +25,14 @@ export type TTableData = Pick<
   };
 };
 const StudentList = () => {
+  //Pagination State
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   const { pathname } = useLocation();
-  //Change Status Hook
+  //  Hook
   const [changeStatus] = useChangeUserStatusMutation();
   const [deleteStudent] = useDeleteStudentMutation();
 
@@ -51,7 +48,7 @@ const StudentList = () => {
     ...params,
   ]);
 
-  //Meta Data
+  //pagination Data
   const pagination = studentData?.pagination;
 
   // Table Data
@@ -127,7 +124,7 @@ const StudentList = () => {
         return (
           <Space>
             <Link to={`/admin/student-list/${item.id}`}>
-              <EyeInvisibleOutlined />
+              <EyeOutlined />
             </Link>
             <Link to={`/admin/student-list/${item.id}/edit`}>
               <EditOutlined />
@@ -139,7 +136,7 @@ const StudentList = () => {
       width: "1%",
     },
   ];
-
+  //& Pagination Controller
   const onShowSizeChange: PaginationProps["onShowSizeChange"] = (
     current,
     pageSize
