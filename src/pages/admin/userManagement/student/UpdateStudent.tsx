@@ -3,7 +3,15 @@ import { useGetSinglelStudentQuery } from "../../../../redux/features/admin/user
 
 import StudentForm from "./StudentForm";
 import { LoadingOutlined } from "@ant-design/icons";
+import { TStudent } from "../../../../types";
 
+export type DefaultStudentData = Omit<
+  TStudent,
+  "academicDepartment" | "admissionSemester" | "dateOfBirth"
+> & {
+  academicDepartment?: string;
+  admissionSemester?: string;
+};
 const UpdateStudent = () => {
   const { studentId } = useParams();
 
@@ -15,7 +23,13 @@ const UpdateStudent = () => {
   } = useGetSinglelStudentQuery(studentId);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { dateOfBirth, ...defaultData } = studentData?.data || {};
+  const { dateOfBirth, ...rest } = (studentData?.data as TStudent) || {};
+
+  const defaultData: DefaultStudentData = {
+    ...rest,
+    academicDepartment: rest?.academicDepartment?._id,
+    admissionSemester: rest?.admissionSemester?._id,
+  };
 
   if (isFetching || isLoading) {
     return (

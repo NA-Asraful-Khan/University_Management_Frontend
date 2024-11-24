@@ -28,7 +28,6 @@ const CreateCourses = () => {
     })) || [];
   // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
     const toastId = toast.loading("Creating... ");
 
     // Refactor Submitted Data

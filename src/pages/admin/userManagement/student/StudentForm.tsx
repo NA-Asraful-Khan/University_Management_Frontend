@@ -19,10 +19,11 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { studentSchema } from "../../../../schemas/userManagement.schema";
+import { DefaultStudentData } from "./UpdateStudent";
 
 type TStudentProps = {
   id?: string;
-  defaultValues?: Partial<TStudent>;
+  defaultValues?: DefaultStudentData | null | undefined;
   defaultDate?: string;
 };
 const StudentForm = ({ id, defaultValues, defaultDate }: TStudentProps) => {
@@ -75,7 +76,7 @@ const StudentForm = ({ id, defaultValues, defaultDate }: TStudentProps) => {
       }
 
       if (!res.error) {
-        toast.success("Student created successfully", {
+        toast.success(`Student ${id ? "updated" : "created"} successfully`, {
           id: toastId,
         });
         navigate(`/admin/student-list`);
@@ -124,7 +125,7 @@ const StudentForm = ({ id, defaultValues, defaultDate }: TStudentProps) => {
           <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
             <CustomDatePicker
               name="dateOfBirth"
-              label="Date Of Birt"
+              label="Date Of Birth"
               defaultValue={defaultDate}
             />
           </Col>
@@ -279,7 +280,7 @@ const StudentForm = ({ id, defaultValues, defaultDate }: TStudentProps) => {
 
         <Space>
           <Button type="primary" htmlType="submit">
-            Create
+            {id ? "Update" : "Create"}
           </Button>
           <Button onClick={() => navigate(-1)}>Cancel</Button>
         </Space>

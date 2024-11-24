@@ -2,7 +2,7 @@ import { Button, Table, TableColumnsType } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { useGetAllAcademicDepertmentByPaginationQuery } from "../../../../redux/features/admin/academicManagement.api";
 import { TAcademicDepertment, TAcademicFaculty } from "../../../../types";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 
 export type TTableData = Pick<TAcademicDepertment, "name"> & {
   academicFaculty: Pick<TAcademicFaculty, "name"> & {
@@ -50,15 +50,12 @@ const AcademicDepertment = () => {
     {
       title: "Action",
       key: "x",
-      render: () => {
+      render: (item) => {
         return (
           <div className="flex gap-2">
-            <Button>
+            <Link to={`/admin/academic-depertment/${item.key}/edit`}>
               <EditOutlined />
-            </Button>
-            <Button>
-              <DeleteOutlined />
-            </Button>
+            </Link>
           </div>
         );
       },

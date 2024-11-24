@@ -9,6 +9,7 @@ import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //& Academic Semester Hooks
     getAllSemesters: builder.query({
       query: () => {
         return {
@@ -81,6 +82,8 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "academicsemester" }],
     }),
+
+    //& Academic Faculty Hooks
     getAllAcademicFaculty: builder.query({
       query: () => {
         return {
@@ -95,6 +98,21 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
       providesTags: [{ type: "academicfaculty" }],
     }),
+    getSinglelAcademicFaculty: builder.query({
+      query: (params) => {
+        return {
+          url: `/academic-faculty/${params}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAcademicFaculty>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "academicfaculty" }],
+    }),
+
     getAllAcademicFacultyByPagination: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -129,6 +147,18 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "academicfaculty" }],
     }),
+    updateAcademicFaculty: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `/academic-faculty/${id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "academicfaculty" }],
+    }),
+
+    //& Academic Department Hooks
     getAllAcademicDepertment: builder.query({
       query: () => {
         return {
@@ -143,6 +173,21 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
       providesTags: [{ type: "academicdepertment" }],
     }),
+    getSinglelAcademicDepertment: builder.query({
+      query: (params) => {
+        return {
+          url: `/academic-depertment/${params}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAcademicDepertment>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "academicdepertment" }],
+    }),
+
     getAllAcademicDepertmentByPagination: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -177,6 +222,16 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "academicdepertment" }],
     }),
+    updateAcademicDepertment: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `/academic-depertment/${id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "academicdepertment" }],
+    }),
   }),
 });
 
@@ -188,9 +243,14 @@ export const {
   useUpdateAcademicSemesterMutation,
 
   useGetAllAcademicFacultyQuery,
+  useGetSinglelAcademicFacultyQuery,
   useGetAllAcademicFacultyByPaginationQuery,
   useAddAcademicFacultyMutation,
+  useUpdateAcademicFacultyMutation,
+
   useGetAllAcademicDepertmentQuery,
+  useGetSinglelAcademicDepertmentQuery,
   useGetAllAcademicDepertmentByPaginationQuery,
   useAddAcademicDepertmentMutation,
+  useUpdateAcademicDepertmentMutation,
 } = academicManagementApi;

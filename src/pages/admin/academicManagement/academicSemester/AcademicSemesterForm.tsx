@@ -21,7 +21,6 @@ const AcademicSemesterForm = ({
   id,
   defaultValues,
 }: TAcademicSemesterProps) => {
-  console.log(id);
   const navigate = useNavigate();
   const [addAcademicSemester] = useAddAcademicSemesterMutation();
   const [updateAcademicSemester] = useUpdateAcademicSemesterMutation();
@@ -80,7 +79,7 @@ const AcademicSemesterForm = ({
           <CustomSelect name="year" options={yearOptions} label="Year" />
           <Space>
             <Button type="primary" htmlType="submit">
-              Create
+              {id ? "Update" : "Create"}
             </Button>
             <Button onClick={() => navigate(-1)}>Cancel</Button>
           </Space>

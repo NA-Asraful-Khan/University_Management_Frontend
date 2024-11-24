@@ -25,6 +25,8 @@ import Courses from "../pages/admin/courseManagement/course/Courses";
 import CreateCourses from "../pages/admin/courseManagement/course/CreateCourses";
 import UpdateRegisteredSemester from "../pages/admin/courseManagement/semesterRegistration/UpdateRegisteredSemester";
 import UpdateAcademicSemester from "../pages/admin/academicManagement/academicSemester/UpdateAcademicSemester";
+import UpdateAcademicDepertment from "../pages/admin/academicManagement/academicDepertment/UpdateAcademicDepertment";
+import UpdateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/UpdateAcademicFaculty";
 
 export const adminPaths = [
   {
@@ -33,6 +35,78 @@ export const adminPaths = [
     icon: <DashboardOutlined />,
     element: <AdminDashboard />,
   },
+  //! Academic Routes
+  {
+    name: "Academic Management",
+    path: "",
+    icon: <MacCommandFilled />,
+    children: [
+      {
+        name: "Academic Semester",
+        path: "academic-semester",
+        children: [
+          {
+            name: "academic-semester",
+            path: "",
+            element: <AcademicSemester />,
+          },
+          {
+            name: "Create A. Semester",
+            path: "create-academic-semester",
+            element: <CreateAcademicSemester />,
+          },
+          {
+            name: "Create A. Semester",
+            path: ":semesterId/edit",
+            element: <UpdateAcademicSemester />,
+          },
+        ],
+      },
+      {
+        name: "Academic Faculty",
+        path: "academic-faculty",
+        children: [
+          {
+            name: "academic-faculty",
+            path: "",
+            element: <AcademicFaculty />,
+          },
+          {
+            name: "Create A. Faculty",
+            path: "create-academic-faculty",
+            element: <CreateAcademicFaculty />,
+          },
+          {
+            name: "Update A. Faculty",
+            path: ":academicFacultyId/edit",
+            element: <UpdateAcademicFaculty />,
+          },
+        ],
+      },
+      {
+        name: "Academic Depertment",
+        path: "academic-depertment",
+        children: [
+          {
+            name: "academic-depertment",
+            path: "",
+            element: <AcademicDepertment />,
+          },
+          {
+            name: "Create A. Depertment",
+            path: "create-academic-depertment",
+            element: <CreateAcademicDepertment />,
+          },
+          {
+            name: "Update A. Depertment",
+            path: ":academicDepertmentId/edit",
+            element: <UpdateAcademicDepertment />,
+          },
+        ],
+      },
+    ],
+  },
+  //! User Routes
   {
     name: "User Management",
     path: "",
@@ -98,66 +172,7 @@ export const adminPaths = [
       },
     ],
   },
-  {
-    name: "Academic Management",
-    path: "",
-    icon: <MacCommandFilled />,
-    children: [
-      {
-        name: "Academic Semester",
-        path: "academic-semester",
-        children: [
-          {
-            name: "academic-semester",
-            path: "",
-            element: <AcademicSemester />,
-          },
-          {
-            name: "Create A. Semester",
-            path: "create-academic-semester",
-            element: <CreateAcademicSemester />,
-          },
-          {
-            name: "Create A. Semester",
-            path: ":semesterId/edit",
-            element: <UpdateAcademicSemester />,
-          },
-        ],
-      },
-      {
-        name: "Academic Faculty",
-        path: "academic-faculty",
-        children: [
-          {
-            name: "academic-faculty",
-            path: "",
-            element: <AcademicFaculty />,
-          },
-          {
-            name: "Create A. Faculty",
-            path: "create-academic-faculty",
-            element: <CreateAcademicFaculty />,
-          },
-        ],
-      },
-      {
-        name: "Academic Depertment",
-        path: "academic-depertment",
-        children: [
-          {
-            name: "academic-depertment",
-            path: "",
-            element: <AcademicDepertment />,
-          },
-          {
-            name: "Create A. Depertment",
-            path: "create-academic-depertment",
-            element: <CreateAcademicDepertment />,
-          },
-        ],
-      },
-    ],
-  },
+  //! Course Routes
   {
     name: "Course Management",
     path: "",

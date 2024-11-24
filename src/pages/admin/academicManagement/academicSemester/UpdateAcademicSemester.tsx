@@ -5,7 +5,7 @@ import { useGetSinglelSemesterQuery } from "../../../../redux/features/admin/aca
 
 const UpdateAcademicSemester = () => {
   const { semesterId } = useParams();
-  // Get Single Student Data
+  // Get Single Semester Data
   const {
     data: semesterData,
     isFetching,
