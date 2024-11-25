@@ -174,6 +174,7 @@ export const {
   useGetSinglelRegisteredSemesterQuery,
   useGetAllRegisteredSemesterByPaginationQuery,
   useAddSemesterRegistrationMutation,
+  useUpdateSemesterRegistrationMutation,
   useUpdateSemesterRegistrationStatusMutation,
 
   useGetAllCoursesQuery,

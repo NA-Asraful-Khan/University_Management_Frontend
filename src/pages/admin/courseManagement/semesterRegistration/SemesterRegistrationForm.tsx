@@ -12,17 +12,33 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagement.api";
 import { SemesterStatusOption } from "../../../../constants/semester";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
-import { useAddSemesterRegistrationMutation } from "../../../../redux/features/admin/courseManagement.api";
+import {
+  useAddSemesterRegistrationMutation,
+  useUpdateSemesterRegistrationMutation,
+} from "../../../../redux/features/admin/courseManagement.api";
 import { toast } from "sonner";
 import { semesterRegistrationDefaultValues } from "../../../../constants/default";
 
-const SemesterRegistration = () => {
+type TSemesterRegistrationProps = {
+  id?: string;
+  defaultValues?: Partial<TSemesterRegistration>;
+  defaultDate?: {
+    startDate: string;
+    endDate: string;
+  };
+};
+const SemesterRegistrationForm = ({
+  id,
+  defaultValues,
+  defaultDate,
+}: TSemesterRegistrationProps) => {
   const navigate = useNavigate();
 
   // Call Add Semester Registration Hook
   const [addSemesterRegistration] = useAddSemesterRegistrationMutation();
+  const [updateSemesterRegistration] = useUpdateSemesterRegistrationMutation();
 
-  // Get Faculty Data
+  // Get Semester Registration  Data
   const { data: academicSemester } = useGetAllSemestersQuery(undefined);
 
   // Refactor Select Options from Faculty Data
@@ -43,14 +59,27 @@ const SemesterRegistration = () => {
       maxCredit: Number(data?.maxCredit),
     };
     try {
-      const res = (await addSemesterRegistration(
-        submittedData
-      )) as TResponse<TSemesterRegistration>;
+      let res: TResponse<TSemesterRegistration>;
 
+      if (id) {
+        // Update operation
+        res = (await updateSemesterRegistration({
+          data: submittedData,
+          id,
+        })) as TResponse<TSemesterRegistration>;
+      } else {
+        // Add operation
+        res = (await addSemesterRegistration(
+          submittedData
+        )) as TResponse<TSemesterRegistration>;
+      }
       if (!res.error) {
-        toast.success("Academic Depertment created successfully", {
-          id: toastId,
-        });
+        toast.success(
+          `Semester Registration ${id ? "updated" : "created"} successfully`,
+          {
+            id: toastId,
+          }
+        );
         navigate(`/admin/registered-semester`);
       } else {
         toast.error(res.error.data.message, {
@@ -68,7 +97,9 @@ const SemesterRegistration = () => {
     <CustomForm
       onSubmit={onSubmit}
       // resolver={zodResolver(academicDepertmentSchema)}
-      defaultValues={semesterRegistrationDefaultValues}
+      defaultValues={
+        defaultValues ? defaultValues : semesterRegistrationDefaultValues
+      }
     >
       <Row gutter={16} justify="start" align="middle">
         <Col xs={{ span: 24 }} md={{ span: 12 }}>
@@ -88,10 +119,18 @@ const SemesterRegistration = () => {
       </Row>
       <Row gutter={16} justify="start" align="middle">
         <Col xs={{ span: 24 }} md={{ span: 12 }}>
-          <CustomDatePicker name={"startDate"} label={"Start Date"} />
+          <CustomDatePicker
+            name={"startDate"}
+            label={"Start Date"}
+            defaultValue={defaultDate?.startDate}
+          />
         </Col>
         <Col xs={{ span: 24 }} md={{ span: 12 }}>
-          <CustomDatePicker name={"endDate"} label={"End Date"} />
+          <CustomDatePicker
+            name={"endDate"}
+            label={"End Date"}
+            defaultValue={defaultDate?.endDate}
+          />
         </Col>
       </Row>
       <Row gutter={16} justify="start" align="middle">
@@ -113,7 +152,7 @@ const SemesterRegistration = () => {
 
       <Space>
         <Button type="primary" htmlType="submit">
-          Create
+          {id ? "Update" : "Create"}
         </Button>
         <Button onClick={() => navigate(-1)}>Cancel</Button>
       </Space>
@@ -121,4 +160,4 @@ const SemesterRegistration = () => {
   );
 };
 
-export default SemesterRegistration;
+export default SemesterRegistrationForm;

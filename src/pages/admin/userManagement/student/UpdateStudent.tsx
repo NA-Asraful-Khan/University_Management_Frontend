@@ -38,6 +38,7 @@ const UpdateStudent = () => {
       </div>
     );
   }
+
   return (
     <StudentForm
       id={studentId}

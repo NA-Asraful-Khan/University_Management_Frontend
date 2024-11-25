@@ -20,7 +20,6 @@ import AdminList from "../pages/admin/userManagement/admin/AdminList";
 import StudentDetails from "../pages/admin/userManagement/student/StudentDetails";
 import UpdateStudent from "../pages/admin/userManagement/student/UpdateStudent";
 import RegisteredSemister from "../pages/admin/courseManagement/semesterRegistration/RegisteredSemester";
-import SemesterRegistration from "../pages/admin/courseManagement/semesterRegistration/SemesterRegistration";
 import Courses from "../pages/admin/courseManagement/course/Courses";
 import CreateCourses from "../pages/admin/courseManagement/course/CreateCourses";
 import UpdateRegisteredSemester from "../pages/admin/courseManagement/semesterRegistration/UpdateRegisteredSemester";
@@ -31,6 +30,7 @@ import FacultyDetails from "../pages/admin/userManagement/faculty/FacultyDetails
 import UpdateFaculty from "../pages/admin/userManagement/faculty/UpdateFaculty";
 import AdminDetails from "../pages/admin/userManagement/admin/AdminDetails";
 import UpdateAdmin from "../pages/admin/userManagement/admin/UpdateAdmin";
+import CreateSemesterRegistration from "../pages/admin/courseManagement/semesterRegistration/CreateSemesterRegistration";
 
 export const adminPaths = [
   {
@@ -214,7 +214,7 @@ export const adminPaths = [
           {
             name: "Create Semester Registration",
             path: "create-semester-registration",
-            element: <SemesterRegistration />,
+            element: <CreateSemesterRegistration />,
           },
           {
             name: "Create Semester Registration",

@@ -6,7 +6,7 @@ import AcademicDepertmentForm from "./AcademicDepertmentForm";
 const UpdateAcademicDepertment = () => {
   const { academicDepertmentId } = useParams();
 
-  // Get Academic Faculty Data
+  // Get Academic Depertment Data
   const {
     data: academicDepertmentData,
     isFetching,
