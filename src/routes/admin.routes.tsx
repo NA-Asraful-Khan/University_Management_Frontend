@@ -31,6 +31,8 @@ import UpdateFaculty from "../pages/admin/userManagement/faculty/UpdateFaculty";
 import AdminDetails from "../pages/admin/userManagement/admin/AdminDetails";
 import UpdateAdmin from "../pages/admin/userManagement/admin/UpdateAdmin";
 import CreateSemesterRegistration from "../pages/admin/courseManagement/semesterRegistration/CreateSemesterRegistration";
+import UpdateCourse from "../pages/admin/courseManagement/course/UpdateCourse";
+import AssaignedFacultyList from "../pages/admin/courseManagement/course/assaignedFaculty/AssaignedFacultyList";
 
 export const adminPaths = [
   {
@@ -217,7 +219,7 @@ export const adminPaths = [
             element: <CreateSemesterRegistration />,
           },
           {
-            name: "Create Semester Registration",
+            name: "Update Semester Registration",
             path: ":registrationId/edit",
             element: <UpdateRegisteredSemester />,
           },
@@ -236,6 +238,16 @@ export const adminPaths = [
             name: "Create Course",
             path: "create-course",
             element: <CreateCourses />,
+          },
+          {
+            name: "Update Course",
+            path: ":courseId/edit",
+            element: <UpdateCourse />,
+          },
+          {
+            name: "Update Course",
+            path: ":courseId/assaignedFaculty",
+            element: <AssaignedFacultyList />,
           },
         ],
       },

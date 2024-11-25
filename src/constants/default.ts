@@ -64,3 +64,10 @@ export const semesterRegistrationDefaultValues = {
   minCredit: 6,
   maxCredit: 16,
 };
+
+export const courseDefaultValues = {
+  title: "CSS",
+  prefix: "CSS",
+  code: "102",
+  credits: 3,
+};
