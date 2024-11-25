@@ -1,4 +1,5 @@
 import {
+  TAssaignFaculty,
   TCourse,
   TQueryParam,
   TResponseRedux,
@@ -166,6 +167,44 @@ const courseManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "course" }],
     }),
+
+    //&  Faculty With Course hook Start
+    getFacultyWCourse: builder.query({
+      query: (id) => {
+        return {
+          url: `course/${id}/get-faculties`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAssaignFaculty>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "facultwithcourse" }],
+    }),
+
+    updateFacultyWCourse: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `course/${id}//assign-faculties`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "facultwithcourse" }],
+    }),
+
+    deleteFacultyWCourse: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `course/${id}/remove-faculties`,
+          method: "DELETE",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "facultwithcourse" }],
+    }),
   }),
 });
 
@@ -182,4 +221,8 @@ export const {
   useGetAllCoursesByPaginationQuery,
   useAddCourseMutation,
   useUpdateCourseMutation,
+
+  useGetFacultyWCourseQuery,
+  useUpdateFacultyWCourseMutation,
+  useDeleteFacultyWCourseMutation,
 } = courseManagementApi;

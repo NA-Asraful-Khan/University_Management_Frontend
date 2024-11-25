@@ -25,3 +25,10 @@ export interface TCourse {
   updatedAt: string;
   __v: number;
 }
+
+export interface TAssaignFaculty {
+  _id: string;
+  course: string;
+  __v: number;
+  faculties: any[];
+}
