@@ -10,11 +10,25 @@ import CustomDatePicker from "../../../../components/form/CustomDatePicker";
 import { facultyDefaultValues } from "../../../../constants/default";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useAddFacultyMutation } from "../../../../redux/features/admin/userManagement.api";
+import {
+  useAddFacultyMutation,
+  useUpdateFacultyMutation,
+} from "../../../../redux/features/admin/userManagement.api";
+import { DefaultFacultyData } from "./UpdateFaculty";
+import { facultySchema } from "../../../../schemas/userManagement.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const FacultyForm = () => {
+type TFacultyProps = {
+  id?: string;
+  defaultValues?: DefaultFacultyData | null | undefined;
+  defaultDate?: string;
+};
+const FacultyForm = ({ id, defaultValues, defaultDate }: TFacultyProps) => {
   const navigate = useNavigate();
+
+  // Call Hooks
   const [addFaculty] = useAddFacultyMutation();
+  const [updateFaculty] = useUpdateFacultyMutation();
 
   //Get Depertment Options
   const { data: depertmentData, isLoading: dIsLoading } =
@@ -37,10 +51,21 @@ const FacultyForm = () => {
       formData.append("data", JSON.stringify(facultyData));
       formData.append("file", data.image);
 
-      const res = (await addFaculty(formData)) as TResponse<TFaculty>;
+      let res: TResponse<TFaculty>;
+
+      if (id) {
+        // Update operation
+        res = (await updateFaculty({
+          data: formData,
+          id: id,
+        })) as TResponse<TFaculty>;
+      } else {
+        // Add operation
+        res = (await addFaculty(formData)) as TResponse<TFaculty>;
+      }
 
       if (!res.error) {
-        toast.success("Faculty created successfully", {
+        toast.success(`Faculty ${id ? "updated" : "created"} successfully`, {
           id: toastId,
         });
         navigate(`/admin/faculty-list`);
@@ -60,7 +85,11 @@ const FacultyForm = () => {
     // console.log(Object.fromEntries(formData));
   };
   return (
-    <CustomForm onSubmit={onSubmit} defaultValues={facultyDefaultValues}>
+    <CustomForm
+      onSubmit={onSubmit}
+      defaultValues={defaultValues ? defaultValues : facultyDefaultValues}
+      resolver={zodResolver(facultySchema)}
+    >
       <Divider orientation="left">Personal Info</Divider>
       <Row gutter={16} justify="start" align="middle">
         <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
@@ -80,7 +109,11 @@ const FacultyForm = () => {
           />
         </Col>
         <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
-          <CustomDatePicker name="dateOfBirth" label="Date Of Birth" />
+          <CustomDatePicker
+            name="dateOfBirth"
+            label="Date Of Birth"
+            defaultValue={defaultDate}
+          />
         </Col>
         <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
           <CustomSelect name="gender" label="Gender" options={genderOptions} />
@@ -150,7 +183,7 @@ const FacultyForm = () => {
 
       <Space>
         <Button type="primary" htmlType="submit">
-          Create
+          {id ? "Update" : "Create"}
         </Button>
         <Button onClick={() => navigate(-1)}>Cancel</Button>
       </Space>

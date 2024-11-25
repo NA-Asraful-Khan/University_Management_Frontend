@@ -8,6 +8,7 @@ import { baseApi } from "../../api/baseApi";
 
 const courseManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //& Semester Registration hook Start
     getAllRegisteredSemester: builder.query({
       query: () => {
         return {
@@ -74,20 +75,30 @@ const courseManagementApi = baseApi.injectEndpoints({
       invalidatesTags: [{ type: "semesterRegistration" }],
     }),
     updateSemesterRegistration: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `semester-registration/${id}`,
+          method: "PATCH",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "semesterRegistration" }],
+    }),
+    updateSemesterRegistrationStatus: builder.mutation({
       query: (data) => {
         return {
-          url: `/semester-registration/${data?.id}`,
+          url: `semester-registration/${data?.id}`,
           method: "PATCH",
           body: data?.status,
         };
       },
       invalidatesTags: [{ type: "semesterRegistration" }],
     }),
-
+    //& Course hook Start
     getAllCourses: builder.query({
       query: () => {
         return {
-          url: "/course",
+          url: "course",
           method: "GET",
         };
       },
@@ -101,7 +112,7 @@ const courseManagementApi = baseApi.injectEndpoints({
     getSinglelCourse: builder.query({
       query: (params) => {
         return {
-          url: `/course/${params}`,
+          url: `course/${params}`,
           method: "GET",
         };
       },
@@ -138,7 +149,7 @@ const courseManagementApi = baseApi.injectEndpoints({
     addCourse: builder.mutation({
       query: (data) => {
         return {
-          url: "/course/create-course",
+          url: "course/create-course",
           method: "POST",
           body: data,
         };
@@ -148,7 +159,7 @@ const courseManagementApi = baseApi.injectEndpoints({
     updateCourse: builder.mutation({
       query: (data) => {
         return {
-          url: `/course/${data?.id}`,
+          url: `course/${data?.id}`,
           method: "PATCH",
           body: data?.status,
         };
@@ -163,7 +174,7 @@ export const {
   useGetSinglelRegisteredSemesterQuery,
   useGetAllRegisteredSemesterByPaginationQuery,
   useAddSemesterRegistrationMutation,
-  useUpdateSemesterRegistrationMutation,
+  useUpdateSemesterRegistrationStatusMutation,
 
   useGetAllCoursesQuery,
   useGetSinglelCourseQuery,

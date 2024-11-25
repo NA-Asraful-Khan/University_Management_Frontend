@@ -1,5 +1,6 @@
 import {
   Button,
+  Modal,
   Pagination,
   PaginationProps,
   Space,
@@ -8,7 +9,12 @@ import {
 } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { TQueryParam, TStudent, TUser } from "../../../../types";
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 import {
   useChangeUserStatusMutation,
   useDeleteStudentMutation,
@@ -30,11 +36,24 @@ const StudentList = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeletedId, setIsDeletedId] = useState("0");
 
   const { pathname } = useLocation();
   //  Hook
   const [changeStatus] = useChangeUserStatusMutation();
   const [deleteStudent] = useDeleteStudentMutation();
+
+  //Delete Handler
+  const handleDeleteStudent = (id: string) => {
+    setIsModalOpen(true);
+    setIsDeletedId(id);
+  };
+
+  const handleOk = () => {
+    deleteStudent(isDeletedId);
+    setIsModalOpen(false);
+  };
 
   // Get Student Data
   const {
@@ -129,7 +148,7 @@ const StudentList = () => {
             <Link to={`/admin/student-list/${item.id}/edit`}>
               <EditOutlined />
             </Link>
-            <DeleteOutlined onClick={() => deleteStudent(item?.id)} />
+            <DeleteOutlined onClick={() => handleDeleteStudent(item.id)} />
           </Space>
         );
       },
@@ -174,6 +193,19 @@ const StudentList = () => {
           showSizeChanger
           onShowSizeChange={onShowSizeChange}
         />
+
+        <Modal
+          title=""
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={() => setIsModalOpen(false)}
+        >
+          <div className="flex flex-col justify-center items-center gap-5">
+            <ExclamationCircleOutlined className="text-7xl text-red-300" />
+            <p className="text-5xl">Are You Sure?</p>
+            <p>You Will Not Be Able To Recover From This.</p>
+          </div>
+        </Modal>
       </div>
     </div>
   );

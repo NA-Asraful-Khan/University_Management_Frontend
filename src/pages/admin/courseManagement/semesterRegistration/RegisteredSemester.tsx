@@ -20,7 +20,7 @@ import {
 import { useState } from "react";
 import {
   useGetAllRegisteredSemesterByPaginationQuery,
-  useUpdateSemesterRegistrationMutation,
+  useUpdateSemesterRegistrationStatusMutation,
 } from "../../../../redux/features/admin/courseManagement.api";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -60,7 +60,8 @@ const RegisteredSemester = () => {
   const [pageSize, setPageSize] = useState(10);
 
   //& Update Semester Hook
-  const [UpdateRegisteredSemester] = useUpdateSemesterRegistrationMutation();
+  const [UpdateRegisteredSemester] =
+    useUpdateSemesterRegistrationStatusMutation();
 
   //& Get Registered Semester Data
   const {

@@ -29,18 +29,18 @@ export const studentDefaultValues = {
 
 export const facultyDefaultValues = {
   name: {
-    firstName: "Hanson",
-    middleName: "Young",
-    lastName: "Juarez",
+    firstName: "Janna",
+    middleName: "Imogene",
+    lastName: "Burks",
   },
-  gender: "Male",
-  email: "youngjuarez@kenegy.com",
-  contactNo: "(995) 444-3799",
-  emergencyContactNo: "(929) 576-2476",
-  bloodGroup: "A+",
-  presentAddress: "831 Bay Street, Sisquoc, New Jersey, 72204",
-  permanentAddress: "963 Aberdeen Street, Duryea, Georgia, 70383",
-  designation: "Lecturer",
+  gender: "female",
+  email: "imogeneburks@viagreat.com",
+  contactNo: "(943) 543-2923",
+  emergencyContactNo: "(937) 501-3846",
+  bloodGroup: "O-",
+  presentAddress: "681 Little Street, Turah, California, 55916",
+  permanentAddress: "166 Lombardy Street, Allensworth, Alabama, 30899",
+  designation: "Senior Lacturar",
 };
 
 export const adminDefaultValues = {
@@ -57,4 +57,10 @@ export const adminDefaultValues = {
   presentAddress: "126 Fulton Street, Harleigh, Alaska, 14954",
   permanentAddress: "844 Greenwood Avenue, Roberts, Minnesota, 16443",
   designation: "Principle",
+};
+
+export const semesterRegistrationDefaultValues = {
+  status: "UPCOMING",
+  minCredit: 6,
+  maxCredit: 16,
 };

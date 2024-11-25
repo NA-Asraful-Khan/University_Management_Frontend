@@ -158,6 +158,7 @@ const FacultyList = () => {
         columns={columns}
         dataSource={tableData}
         showSorterTooltip={{ target: "sorter-icon" }}
+        pagination={false}
       />
 
       <Pagination

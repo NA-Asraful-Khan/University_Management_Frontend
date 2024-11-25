@@ -14,6 +14,7 @@ import { SemesterStatusOption } from "../../../../constants/semester";
 import CustomDatePicker from "../../../../components/form/CustomDatePicker";
 import { useAddSemesterRegistrationMutation } from "../../../../redux/features/admin/courseManagement.api";
 import { toast } from "sonner";
+import { semesterRegistrationDefaultValues } from "../../../../constants/default";
 
 const SemesterRegistration = () => {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const SemesterRegistration = () => {
     <CustomForm
       onSubmit={onSubmit}
       // resolver={zodResolver(academicDepertmentSchema)}
+      defaultValues={semesterRegistrationDefaultValues}
     >
       <Row gutter={16} justify="start" align="middle">
         <Col xs={{ span: 24 }} md={{ span: 12 }}>
