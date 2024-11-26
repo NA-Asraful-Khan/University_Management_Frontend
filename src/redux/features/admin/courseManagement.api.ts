@@ -187,7 +187,7 @@ const courseManagementApi = baseApi.injectEndpoints({
     updateFacultyWCourse: builder.mutation({
       query: ({ data, id }) => {
         return {
-          url: `course/${id}//assign-faculties`,
+          url: `course/${id}/assign-faculties`,
           method: "PUT",
           body: data,
         };
