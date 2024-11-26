@@ -174,29 +174,30 @@ const AdminList = () => {
           <Button>Create Admin</Button>
         </Link>
       </div>
+      <div className="overflow-x-auto overflow-y-hidden">
+        <Table
+          loading={isFetching || isLoading}
+          columns={columns}
+          dataSource={tableData}
+          showSorterTooltip={{ target: "sorter-icon" }}
+        />
 
-      <Table
-        loading={isFetching || isLoading}
-        columns={columns}
-        dataSource={tableData}
-        showSorterTooltip={{ target: "sorter-icon" }}
-      />
-
-      <Pagination
-        showQuickJumper
-        showTotal={(total, range) =>
-          `${range[0]}-${range[1]} of ${total} items`
-        }
-        defaultCurrent={1}
-        total={pagination?.total}
-        pageSize={pagination?.limit}
-        // onChange={onChange}
-        onChange={(page) => {
-          setPage(page);
-        }}
-        showSizeChanger
-        onShowSizeChange={onShowSizeChange}
-      />
+        <Pagination
+          showQuickJumper
+          showTotal={(total, range) =>
+            `${range[0]}-${range[1]} of ${total} items`
+          }
+          defaultCurrent={1}
+          total={pagination?.total}
+          pageSize={pagination?.limit}
+          // onChange={onChange}
+          onChange={(page) => {
+            setPage(page);
+          }}
+          showSizeChanger
+          onShowSizeChange={onShowSizeChange}
+        />
+      </div>
 
       <Modal
         title=""

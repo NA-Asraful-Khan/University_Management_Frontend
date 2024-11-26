@@ -22,7 +22,7 @@ import {
   useGetAllRegisteredSemesterByPaginationQuery,
   useUpdateSemesterRegistrationStatusMutation,
 } from "../../../../redux/features/admin/courseManagement.api";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import moment from "moment";
 
 export type TTableData = Pick<
@@ -193,9 +193,6 @@ const RegisteredSemester = () => {
             <Link to={`/admin/registered-semester/${item.key}/edit`}>
               <EditOutlined />
             </Link>
-            <Button>
-              <DeleteOutlined />
-            </Button>
           </Space>
         );
       },

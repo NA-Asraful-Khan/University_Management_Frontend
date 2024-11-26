@@ -170,7 +170,7 @@ const StudentList = () => {
           <Button>Create Student</Button>
         </Link>
       </div>
-      <div className="overflow-y-hidden">
+      <div className="overflow-x-auto overflow-y-hidden">
         <Table
           loading={isFetching || isLoading}
           columns={columns}

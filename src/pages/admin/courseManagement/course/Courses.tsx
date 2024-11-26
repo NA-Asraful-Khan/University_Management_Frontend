@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 import { TCourse, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import { useGetAllCoursesByPaginationQuery } from "../../../../redux/features/admin/courseManagement.api";
-import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
+import { EditOutlined, MoreOutlined } from "@ant-design/icons";
 
 export type TTableData = Pick<TCourse, "title" | "prefix" | "code" | "credits">;
 const Courses = () => {
@@ -88,9 +88,6 @@ const Courses = () => {
             <Link to={`/admin/courses/${item.key}/assaignedFaculty`}>
               <MoreOutlined />
             </Link>
-            <Button>
-              <DeleteOutlined />
-            </Button>
           </Space>
         );
       },

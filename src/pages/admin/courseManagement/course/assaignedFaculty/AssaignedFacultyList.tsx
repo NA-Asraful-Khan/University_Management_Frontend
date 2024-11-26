@@ -1,9 +1,13 @@
 import { Button, Space, Table, TableColumnsType } from "antd";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useGetFacultyWCourseQuery } from "../../../../../redux/features/admin/courseManagement.api";
+import {
+  useDeleteFacultyWCourseMutation,
+  useGetFacultyWCourseQuery,
+} from "../../../../../redux/features/admin/courseManagement.api";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TFaculty } from "../../../../../types";
+import { TFaculty, TResponse } from "../../../../../types";
 import { ArrowLeftOutlined, DeleteOutlined } from "@ant-design/icons";
+import { toast } from "sonner";
 
 export type TTableData = {
   key: string | undefined;
@@ -15,6 +19,8 @@ const AssaignedFacultyList = () => {
   const { pathname } = useLocation();
   const { courseId } = useParams();
 
+  // Call Delete Course Hook
+  const [deleteFaculty] = useDeleteFacultyWCourseMutation();
   // Get Assaigned Faculty Data
   const {
     data: facultyWCourseData,
@@ -22,12 +28,43 @@ const AssaignedFacultyList = () => {
     isFetching,
   } = useGetFacultyWCourseQuery(courseId);
 
+  //& Delete Handler
+  const deleteHandler = async (data: string) => {
+    const toastId = toast.loading("Deleting... ");
+    // Refactor Submitted Data
+    const submittedData = {
+      data: {
+        faculties: [data],
+      },
+      id: courseId,
+    };
+    try {
+      const res = (await deleteFaculty(submittedData)) as TResponse<any>;
+
+      if (!res.error) {
+        toast.success(`Faculty Deleted successfully`, {
+          id: toastId,
+        });
+      } else {
+        toast.error(res.error.data.message, {
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong", {
+        id: toastId,
+      });
+      console.error(error);
+    }
+  };
+
   //& Table Data
   const tableData: TTableData[] =
-    facultyWCourseData?.data?.faculties?.map(({ fullName }) => {
+    facultyWCourseData?.data?.faculties?.map(({ _id, fullName }) => {
       return {
-        key: facultyWCourseData?.data?._id,
+        key: _id,
         faculties: {
+          _id,
           fullName,
         },
         course: facultyWCourseData?.data?.course,
@@ -50,12 +87,11 @@ const AssaignedFacultyList = () => {
       title: "Action",
       key: "x",
       render: (item) => {
-        console.log(item);
         return (
           <Space>
-            <Button>
-              <DeleteOutlined />
-            </Button>
+            <DeleteOutlined
+              onClick={() => deleteHandler(item?.faculties?._id)}
+            />
           </Space>
         );
       },

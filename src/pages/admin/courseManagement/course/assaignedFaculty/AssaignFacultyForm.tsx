@@ -31,7 +31,6 @@ const AssaignFacultyForm = ({ defaultValues }: TAssaignFacultyProps) => {
     })) || [];
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data, courseId);
     const toastId = toast.loading("Creating... ");
     // Refactor Submitted Data
     const submittedData = {
@@ -58,6 +57,7 @@ const AssaignFacultyForm = ({ defaultValues }: TAssaignFacultyProps) => {
       console.error(error);
     }
   };
+
   return (
     <Flex justify="center" align="center">
       <Col span={12}>
