@@ -51,7 +51,6 @@ const SemesterRegistrationForm = ({
   // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Creating... ");
-
     // Refactor Submitted Data
     const submittedData = {
       ...data,

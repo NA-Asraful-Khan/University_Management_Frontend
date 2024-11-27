@@ -34,6 +34,10 @@ import CreateSemesterRegistration from "../pages/admin/courseManagement/semester
 import UpdateCourse from "../pages/admin/courseManagement/course/UpdateCourse";
 import AssaignedFacultyList from "../pages/admin/courseManagement/course/assaignedFaculty/AssaignedFacultyList";
 import CreateAssaignFaculty from "../pages/admin/courseManagement/course/assaignedFaculty/CreateAssaignFaculty";
+import OfferedCourseList from "../pages/admin/courseManagement/offeredCourse/OfferedCourseList";
+import CreateOfferedCourse from "../pages/admin/courseManagement/offeredCourse/CreateOfferedCourse";
+import DetailOfferedCourse from "../pages/admin/courseManagement/offeredCourse/DetailOfferedCourse";
+import UpdateOfferedCourse from "../pages/admin/courseManagement/offeredCourse/UpdateOfferedCourse";
 
 export const adminPaths = [
   {
@@ -254,6 +258,32 @@ export const adminPaths = [
             name: "Create Assaign Faculty",
             path: ":courseId/assaignedFaculty/create-assaign-faculty",
             element: <CreateAssaignFaculty />,
+          },
+        ],
+      },
+      {
+        name: "Offered Course",
+        path: "offered-course-list",
+        children: [
+          {
+            name: "Offered Course",
+            path: "",
+            element: <OfferedCourseList />,
+          },
+          {
+            name: "Create Offered Course",
+            path: "create-offered-course",
+            element: <CreateOfferedCourse />,
+          },
+          {
+            name: "Offered Course Details",
+            path: ":offeredCourseId",
+            element: <DetailOfferedCourse />,
+          },
+          {
+            name: "Offered Course Update",
+            path: ":offeredCourseId/edit",
+            element: <UpdateOfferedCourse />,
           },
         ],
       },

@@ -205,6 +205,87 @@ const courseManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [{ type: "facultwithcourse" }],
     }),
+
+    //& Offered Course hook Start
+
+    getAllOfferedCourses: builder.query({
+      query: () => {
+        return {
+          url: "offered-course",
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<any[]>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "offeredCourse" }],
+    }),
+    getSinglelOfferedCourse: builder.query({
+      query: (params) => {
+        return {
+          url: `offered-course/${params}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<any>) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "offeredCourse" }],
+    }),
+    getAllOfferedCourseByPagination: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: `/offered-course/pagination/query`,
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<any[]>) => {
+        return {
+          data: response.data,
+          pagination: response.pagination,
+        };
+      },
+      providesTags: [{ type: "offeredCourse" }],
+    }),
+    addOfferedCourse: builder.mutation({
+      query: (data) => {
+        return {
+          url: "offered-course",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "offeredCourse" }],
+    }),
+    updateOfferedCourse: builder.mutation({
+      query: (data) => {
+        return {
+          url: `offered-course/${data?.id}`,
+          method: "PATCH",
+          body: data?.status,
+        };
+      },
+      invalidatesTags: [{ type: "offeredCourse" }],
+    }),
+    deleteOfferedCourse: builder.mutation({
+      query: (id) => ({
+        url: `offered-course/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "offeredCourse" }],
+    }),
   }),
 });
 
@@ -225,4 +306,11 @@ export const {
   useGetFacultyWCourseQuery,
   useUpdateFacultyWCourseMutation,
   useDeleteFacultyWCourseMutation,
+
+  useGetAllOfferedCoursesQuery,
+  useGetSinglelOfferedCourseQuery,
+  useGetAllOfferedCourseByPaginationQuery,
+  useAddOfferedCourseMutation,
+  useUpdateOfferedCourseMutation,
+  useDeleteOfferedCourseMutation,
 } = courseManagementApi;

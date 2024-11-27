@@ -6,17 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomSelect from "../../../../components/form/CustomSelect";
 import {
   useAddAcademicDepertmentMutation,
-  useGetAllAcademicFacultyQuery,
   useUpdateAcademicDepertmentMutation,
 } from "../../../../redux/features/admin/academicManagement.api";
 import CustomInput from "../../../../components/form/CustomInput";
-import {
-  TAcademicDepertment,
-  TResponse,
-  TSelectOptions,
-} from "../../../../types";
+import { TAcademicDepertment, TResponse } from "../../../../types";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useAcademicFacultyOptions } from "../../../../constants/AllOptions";
 
 type TAcademicDepertmentProps = {
   id?: string;
@@ -32,16 +28,8 @@ const AcademicDepertmentForm = ({
   const [addAcademicDepertment] = useAddAcademicDepertmentMutation();
   const [updateAcademicDepertment] = useUpdateAcademicDepertmentMutation();
 
-  // Get Faculty Data
-  const { data: academicFacultyData } =
-    useGetAllAcademicFacultyQuery(undefined);
-
   // Refactor Select Options from Faculty Data
-  const facultiesOptions: TSelectOptions[] =
-    academicFacultyData?.data?.map(({ _id, name }) => ({
-      value: String(_id),
-      label: String(name),
-    })) || [];
+  const facultiesOptions = useAcademicFacultyOptions();
 
   // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
