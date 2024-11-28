@@ -17,7 +17,7 @@ const CreateAssaignFaculty = () => {
     undefined;
 
   const defaultData = { faculties: FacultyIds };
-  console.log(defaultData);
+
   if (isFetching || isLoading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">

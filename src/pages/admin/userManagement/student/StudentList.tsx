@@ -36,6 +36,8 @@ const StudentList = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+
+  //Delete Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeletedId, setIsDeletedId] = useState("0");
 
@@ -139,7 +141,6 @@ const StudentList = () => {
       title: "Action",
       key: "x",
       render: (item) => {
-        console.log(item);
         return (
           <Space>
             <Link to={`/admin/student-list/${item.id}`}>

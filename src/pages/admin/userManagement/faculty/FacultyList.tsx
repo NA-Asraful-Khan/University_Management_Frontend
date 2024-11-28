@@ -121,7 +121,6 @@ const FacultyList = () => {
       title: "Action",
       key: "x",
       render: (item) => {
-        console.log(item);
         return (
           <Space>
             <Link to={`/admin/faculty-list/${item.id}`}>

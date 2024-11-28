@@ -15,7 +15,6 @@ const UpdateAdmin = () => {
     isLoading,
   } = useGetSinglelAdminQuery(adminID);
 
-  console.log(adminData);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { dateOfBirth, ...rest } = (adminData?.data as TAdmin) || {};
 

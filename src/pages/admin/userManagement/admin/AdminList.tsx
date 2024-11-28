@@ -142,7 +142,6 @@ const AdminList = () => {
       title: "Action",
       key: "x",
       render: (item) => {
-        console.log(item);
         return (
           <Space>
             <Link to={`/admin/admin-list/${item.id}`}>

@@ -15,13 +15,26 @@ import CustomInput from "../../../../components/form/CustomInput";
 import CustomTimePicker from "../../../../components/form/CustomTimePicker";
 import { toast } from "sonner";
 import { TResponse } from "../../../../types";
-import { useAddOfferedCourseMutation } from "../../../../redux/features/admin/courseManagement.api";
+import {
+  useAddOfferedCourseMutation,
+  useUpdateOfferedCourseMutation,
+} from "../../../../redux/features/admin/courseManagement.api";
 import dayjs from "dayjs";
-const OfferedCourseForm = () => {
+import { DefaultOfferedCourseData } from "./UpdateOfferedCourse";
+
+type TOfferedCourseProps = {
+  id?: string;
+  defaultValues?: DefaultOfferedCourseData | null | undefined;
+  defaultDate?: string;
+};
+const OfferedCourseForm = ({ id, defaultValues }: TOfferedCourseProps) => {
   const navigate = useNavigate();
 
   //Call Hooks
   const [addOfferedCourse] = useAddOfferedCourseMutation();
+  const [UpdateOfferedCourse] = useUpdateOfferedCourseMutation();
+
+  //Call Options
   const semesterOptions = useSemesterRegistrationOptions();
   const academicFacultyOptions = useAcademicFacultyOptions();
   const academicDepartmentOptions = useAcademicDepartmentOptions();
@@ -41,7 +54,18 @@ const OfferedCourseForm = () => {
         endTime: dayjs(data?.startTime[1]).format("HH:mm"),
       };
 
-      const res = (await addOfferedCourse(finalData)) as TResponse<any>;
+      let res: TResponse<any>;
+
+      if (id) {
+        // Update operation
+        res = (await UpdateOfferedCourse({
+          data: finalData,
+          id: id,
+        })) as TResponse<any>;
+      } else {
+        // Add operation
+        res = (await addOfferedCourse(finalData)) as TResponse<any>;
+      }
 
       if (!res.error) {
         toast.success(`Offered Course created successfully`, {
@@ -65,7 +89,7 @@ const OfferedCourseForm = () => {
       <h1 className="text-xl font-bold">Create Student</h1>
       <CustomForm
         onSubmit={onSubmit}
-        // defaultValues={defaultValues ? defaultValues : studentDefaultValues}
+        defaultValues={defaultValues ? defaultValues : {}}
         // resolver={zodResolver(studentSchema)}
       >
         <Row gutter={16} justify="start" align="middle">
