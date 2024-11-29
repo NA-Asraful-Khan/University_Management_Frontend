@@ -19,14 +19,19 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const CurrentUser = useAppSelector(selectCurrentUser);
 
+  console.log(CurrentUser);
   // Redirect to  DashBoard If Already Login
   useEffect(() => {
     if (CurrentUser) {
-      navigate(
-        `/${
-          CurrentUser?.role === "super-admin" ? "admin" : CurrentUser?.role
-        }/dashboard`
-      );
+      if (CurrentUser?.needsPasswordChange) {
+        navigate("/change-password");
+      } else {
+        navigate(
+          `/${
+            CurrentUser?.role === "super-admin" ? "admin" : CurrentUser?.role
+          }/dashboard`
+        );
+      }
     }
   }, [CurrentUser, navigate]);
 
@@ -49,16 +54,32 @@ const Login = () => {
 
       const res = await login(submitInfo).unwrap();
       const user = verifyToken(res?.data?.accessToken) as TUser;
-
-      dispatch(setUser({ user: user, token: res?.data?.accessToken }));
+      console.log(res);
+      dispatch(
+        setUser({
+          user: user,
+          token: res?.data?.accessToken,
+          needsPasswordChange: res?.data?.needsPasswordChange,
+        })
+      );
 
       toast.success("Successfully Log In", { id: toastId, duration: 2000 });
-      navigate(
-        `/${user?.role === "super-admin" ? "admin" : user?.role}/dashboard`
-      );
+
+      if (res?.data?.needsPasswordChange === true) {
+        navigate("/change-password");
+      } else {
+        navigate(
+          `/${user?.role === "super-admin" ? "admin" : user?.role}/dashboard`
+        );
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+      const error = err as { data: { message: string } };
+      toast.error(
+        error.data.message ? error.data.message : "Something went wrong",
+        { id: toastId, duration: 2000 }
+      );
     }
   };
   return (

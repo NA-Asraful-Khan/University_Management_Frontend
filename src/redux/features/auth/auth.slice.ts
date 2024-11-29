@@ -3,6 +3,7 @@ import { RootState } from "../../store";
 export type TUser = {
   userId: string;
   role: string;
+  needsPasswordChange: boolean;
   iat: number;
   exp: number;
 };
@@ -22,12 +23,24 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { user, token } = action.payload;
+      const { user, token, needsPasswordChange } = action.payload;
       state.user = user;
       state.token = token;
+      if (state.user) {
+        state.user.needsPasswordChange = needsPasswordChange;
+      }
     },
+    changeNeedPasswordChangeStatus: (state, action) => {
+      const { needsPasswordChange } = action.payload;
+
+      if (state.user) {
+        state.user.needsPasswordChange = needsPasswordChange;
+      }
+    },
+
     logout: (state) => {
       state.user = null;
+      state.token = null;
       state.token = null;
     },
   },
