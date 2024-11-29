@@ -4,7 +4,6 @@ import {
   useAcademicFacultyOptions,
   useCourseOptions,
   useDaysOfWeek,
-  useFacultyOptions,
   useSemesterRegistrationOptions,
 } from "../../../../constants/AllOptions";
 import { Button, Col, Row, Space } from "antd";
@@ -14,13 +13,16 @@ import CustomForm from "../../../../components/form/CustomForm";
 import CustomInput from "../../../../components/form/CustomInput";
 import CustomTimePicker from "../../../../components/form/CustomTimePicker";
 import { toast } from "sonner";
-import { TResponse } from "../../../../types";
+import { TResponse, TSelectOptions } from "../../../../types";
 import {
   useAddOfferedCourseMutation,
+  useGetFacultyWCourseQuery,
   useUpdateOfferedCourseMutation,
 } from "../../../../redux/features/admin/courseManagement.api";
 import dayjs from "dayjs";
 import { DefaultOfferedCourseData } from "./UpdateOfferedCourse";
+import CustomWatchSelect from "../../../../components/form/CustomWatchSelect";
+import { useState } from "react";
 
 type TOfferedCourseProps = {
   id?: string;
@@ -28,6 +30,7 @@ type TOfferedCourseProps = {
   defaultDate?: string;
 };
 const OfferedCourseForm = ({ id, defaultValues }: TOfferedCourseProps) => {
+  const [courseId, setCourseId] = useState<string>("");
   const navigate = useNavigate();
 
   //Call Hooks
@@ -39,8 +42,18 @@ const OfferedCourseForm = ({ id, defaultValues }: TOfferedCourseProps) => {
   const academicFacultyOptions = useAcademicFacultyOptions();
   const academicDepartmentOptions = useAcademicDepartmentOptions();
   const courseOptions = useCourseOptions();
-  const facultyOptions = useFacultyOptions();
   const daysOptions = useDaysOfWeek();
+
+  //Conditional FacultyOptions
+  const { data: courseFaculty } = useGetFacultyWCourseQuery(courseId, {
+    skip: !courseId,
+  });
+
+  const FacultyOptions: TSelectOptions[] =
+    courseFaculty?.data?.faculties?.map(({ _id, fullName }) => ({
+      value: String(_id),
+      label: String(fullName),
+    })) || [];
 
   // Form Submit Handler
   const onSubmit = async (data: FieldValues) => {
@@ -119,27 +132,30 @@ const OfferedCourseForm = ({ id, defaultValues }: TOfferedCourseProps) => {
           </Col>
           <Col xs={{ span: 24 }} md={{ span: 12 }}>
             <CustomSelect
-              name="course"
-              options={courseOptions}
-              label="Course"
-            />
-          </Col>
-        </Row>
-        <Row gutter={16} justify="start" align="middle">
-          <Col xs={{ span: 24 }} md={{ span: 12 }}>
-            <CustomSelect
-              name="faculty"
-              options={facultyOptions}
-              label="Faculty"
-            />
-          </Col>
-          <Col xs={{ span: 24 }} md={{ span: 12 }}>
-            <CustomSelect
               mode="multiple"
               name="days"
               options={daysOptions}
               label="Day"
             />
+          </Col>
+        </Row>
+        <Row gutter={16} justify="start" align="middle">
+          <Col xs={{ span: 24 }} md={{ span: 12 }}>
+            <CustomWatchSelect
+              name="course"
+              options={courseOptions}
+              label="Course"
+              onValueChange={setCourseId}
+            />
+          </Col>
+          <Col xs={{ span: 24 }} md={{ span: 12 }}>
+            {courseId && (
+              <CustomSelect
+                name="faculty"
+                options={FacultyOptions}
+                label="Faculty"
+              />
+            )}
           </Col>
         </Row>
         <Row gutter={16} justify="start" align="middle">
