@@ -22,12 +22,16 @@ const Login = () => {
   // Redirect to  DashBoard If Already Login
   useEffect(() => {
     if (CurrentUser) {
-      navigate(`/${CurrentUser?.role}/dashboard`);
+      navigate(
+        `/${
+          CurrentUser?.role === "super-admin" ? "admin" : CurrentUser?.role
+        }/dashboard`
+      );
     }
   }, [CurrentUser, navigate]);
 
   const defaultValues = {
-    userId: "A-0001",
+    userId: "2024020001",
     password: "pherowebsite!@",
   };
 
@@ -49,7 +53,9 @@ const Login = () => {
       dispatch(setUser({ user: user, token: res?.data?.accessToken }));
 
       toast.success("Successfully Log In", { id: toastId, duration: 2000 });
-      navigate(`/${user?.role}/dashboard`);
+      navigate(
+        `/${user?.role === "super-admin" ? "admin" : user?.role}/dashboard`
+      );
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       toast.error("Something went wrong", { id: toastId, duration: 2000 });
