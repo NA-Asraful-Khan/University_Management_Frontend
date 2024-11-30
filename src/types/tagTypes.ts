@@ -8,4 +8,5 @@ export const tagTypes = [
   "semesterRegistration",
   "course",
   "offeredCourse",
+  "myOfferedCourse",
 ];
