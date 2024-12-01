@@ -1,21 +1,32 @@
 import { useState } from "react";
-import { useGetMyOfferedCourseQuery } from "../../redux/features/student/studentCourseManagement";
+import {
+  useEnrollCourseMutation,
+  useGetMyOfferedCourseQuery,
+} from "../../redux/features/student/studentCourseManagement";
 import { TQueryParam } from "../../types";
 import { Button, Col, Row } from "antd";
 
+type TCourse = {
+  [index: string]: any;
+};
 const OfferedCourse = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+
+  // Get OfferedCourse Data
   const { data: OfferedCourseData } = useGetMyOfferedCourseQuery([
     { name: "limit", value: pageSize },
     { name: "page", value: page },
     { name: "sort", value: "-id" },
     ...params,
   ]);
+  //Enroll Course
+  const [enroll] = useEnrollCourseMutation();
 
-  const singleObject = OfferedCourseData?.data?.reduce((acc, item) => {
+  //Modify Object
+  const singleObject = OfferedCourseData?.data?.reduce((acc: TCourse, item) => {
     const key = item.course.title;
     acc[key] = acc[key] || { courseTitle: key, sections: [] };
     acc[key].sections?.push({
@@ -30,11 +41,22 @@ const OfferedCourse = () => {
 
   const modifiedData = Object.values(singleObject ? singleObject : {});
 
+  //enroll Handler
+
+  const handleEnroll = async (id: string) => {
+    const res = await enroll({ offeredCourse: id });
+
+    console.log(res);
+  };
+
+  if (modifiedData.length > 0) {
+    return <h2 className="text-3xl">No Available Courses</h2>;
+  }
   return (
     <Row gutter={[0, 20]}>
       {modifiedData?.map((item) => {
         return (
-          <Col span={24} className="border border-2 border-gray-400">
+          <Col span={24} className="border-2 border-gray-400">
             <div className="p-2 text-2xl font-bold">
               <h2>{item.courseTitle}</h2>
             </div>
@@ -50,7 +72,7 @@ const OfferedCourse = () => {
                 <Col span={5}>End Time</Col>
                 <Col>Action</Col>
               </Row>
-              {item.sections.map((section) => {
+              {item.sections.map((section: any) => {
                 return (
                   <Row
                     justify="space-between"
@@ -59,13 +81,15 @@ const OfferedCourse = () => {
                   >
                     <Col span={5}>{section.section}</Col>
                     <Col span={5}>
-                      {section.days.map((day) => (
+                      {section.days.map((day: string) => (
                         <span>{day}</span>
                       ))}
                     </Col>
                     <Col span={5}>{section.startTime}</Col>
                     <Col span={5}>{section.endTime}</Col>
-                    <Button>Enroll</Button>
+                    <Button onClick={() => handleEnroll(section?._id)}>
+                      Enroll
+                    </Button>
                   </Row>
                 );
               })}

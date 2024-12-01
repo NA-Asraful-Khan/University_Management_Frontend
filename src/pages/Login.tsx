@@ -51,7 +51,7 @@ const Login = () => {
         id: data.userId,
         password: data.password,
       };
-
+      console.log(submitInfo);
       const res = await login(submitInfo).unwrap();
       const user = verifyToken(res?.data?.accessToken) as TUser;
       console.log(res);
