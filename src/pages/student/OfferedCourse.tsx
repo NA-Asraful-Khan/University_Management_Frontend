@@ -12,13 +12,11 @@ type TCourse = {
 const OfferedCourse = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TQueryParam[]>([]);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
 
   // Get OfferedCourse Data
   const { data: OfferedCourseData } = useGetMyOfferedCourseQuery([
-    { name: "limit", value: pageSize },
-    { name: "page", value: page },
+    { name: "limit", value: 20 },
+    { name: "page", value: 1 },
     { name: "sort", value: "-id" },
     ...params,
   ]);
@@ -49,7 +47,7 @@ const OfferedCourse = () => {
     console.log(res);
   };
 
-  if (modifiedData.length > 0) {
+  if (modifiedData.length <= 0) {
     return <h2 className="text-3xl">No Available Courses</h2>;
   }
   return (

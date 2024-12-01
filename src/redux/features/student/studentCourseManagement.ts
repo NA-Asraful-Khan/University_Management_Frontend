@@ -26,6 +26,30 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
       },
       providesTags: [{ type: "myOfferedCourse" }],
     }),
+
+    getAllEnrolledCourse: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/enrolled-courses/my-enrolled-courses",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TMyOfferedCourse[]>) => {
+        return {
+          data: response.data,
+          pagination: response.pagination,
+        };
+      },
+      providesTags: [{ type: "myOfferedCourse" }],
+    }),
     enrollCourse: builder.mutation({
       query: (data) => {
         return {
@@ -39,5 +63,8 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetMyOfferedCourseQuery, useEnrollCourseMutation } =
-  studentCourseManagementApi;
+export const {
+  useGetMyOfferedCourseQuery,
+  useGetAllEnrolledCourseQuery,
+  useEnrollCourseMutation,
+} = studentCourseManagementApi;
