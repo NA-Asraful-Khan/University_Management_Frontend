@@ -1,6 +1,7 @@
 import { CustomerServiceFilled, DashboardOutlined } from "@ant-design/icons";
 import FacultyDashboard from "../pages/faculty/FacultyDashboard";
-import OfferedCourse from "../pages/faculty/OfferedCourse";
+import OfferedCourse from "../pages/faculty/OfferedCourse/OfferedCourse";
+import CourseStudentList from "../pages/faculty/OfferedCourse/CourseStudentList";
 
 export const facultyPaths = [
   {
@@ -11,8 +12,25 @@ export const facultyPaths = [
   },
   {
     name: "Offered Course",
-    path: "offered-course",
+    path: "",
     icon: <CustomerServiceFilled />,
-    element: <OfferedCourse />,
+    children: [
+      {
+        name: "Offered Course",
+        path: "offered-course",
+        children: [
+          {
+            name: "offered-course",
+            path: "",
+            element: <OfferedCourse />,
+          },
+          {
+            name: "Student List",
+            path: ":offeredCourseId",
+            element: <CourseStudentList />,
+          },
+        ],
+      },
+    ],
   },
 ];

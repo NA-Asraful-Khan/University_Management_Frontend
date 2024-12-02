@@ -36,8 +36,8 @@ const Login = () => {
   }, [CurrentUser, navigate]);
 
   const defaultValues = {
-    userId: "2024020001",
-    password: "pherowebsite!@",
+    userId: "F-0001",
+    password: "pherowebsite!@1",
   };
 
   // Login Mutation Hook
