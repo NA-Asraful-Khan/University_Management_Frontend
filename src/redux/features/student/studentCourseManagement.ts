@@ -42,7 +42,7 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      transformResponse: (response: TResponseRedux<TMyOfferedCourse[]>) => {
+      transformResponse: (response: TResponseRedux<any[]>) => {
         return {
           data: response.data,
           pagination: response.pagination,

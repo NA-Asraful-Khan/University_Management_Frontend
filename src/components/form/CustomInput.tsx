@@ -7,8 +7,9 @@ type TInputProps = {
   type: string;
   name: string;
   label?: string;
+  disabled?: boolean;
 };
-const CustomInput = ({ type, name, label }: TInputProps) => {
+const CustomInput = ({ type, name, label, disabled = false }: TInputProps) => {
   return (
     <div className="mb-5">
       <Controller
@@ -16,6 +17,7 @@ const CustomInput = ({ type, name, label }: TInputProps) => {
         render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
             <Input
+              disabled={disabled}
               className="border border-1 border-black"
               {...field}
               type={type}
