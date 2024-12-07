@@ -19,7 +19,6 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const CurrentUser = useAppSelector(selectCurrentUser);
 
-  console.log(CurrentUser);
   // Redirect to  DashBoard If Already Login
   useEffect(() => {
     if (CurrentUser) {

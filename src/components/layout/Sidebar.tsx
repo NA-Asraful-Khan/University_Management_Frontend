@@ -30,7 +30,7 @@ const Sidebar = ({ collapsed }: TSidebarType) => {
   let sidebarItems;
   switch ((user as TUser)!.role) {
     case userRole.SUPER_ADMIN:
-      sidebarItems = sidebarItemsGenerator(adminPaths, userRole.SUPER_ADMIN);
+      sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);

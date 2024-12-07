@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { TResponse } from "../../types";
 import { tagTypes } from "../../types/tagTypes";
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000/api/v1",
+  baseUrl: "https://unimanagement.na-api-bundle.cyou/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -35,10 +35,13 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   }
 
   if (result?.error?.status === 401) {
-    const res = await fetch("http://localhost:5000/api/v1/auth/refresh-token", {
-      method: "POST",
-      credentials: "include",
-    });
+    const res = await fetch(
+      "https://unimanagement.na-api-bundle.cyou/api/v1/auth/refresh-token",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;
