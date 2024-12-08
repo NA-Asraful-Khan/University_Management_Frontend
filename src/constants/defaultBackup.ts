@@ -28,35 +28,35 @@ export const studentDefaultValues = {
 };
 
 export const facultyDefaultValues = {
-  // name: {
-  //   firstName: "Janna",
-  //   middleName: "Imogene",
-  //   lastName: "Burks",
-  // },
-  // gender: "female",
-  // email: "imogeneburks@viagreat.com",
-  // contactNo: "(943) 543-2923",
-  // emergencyContactNo: "(937) 501-3846",
-  // bloodGroup: "O-",
-  // presentAddress: "681 Little Street, Turah, California, 55916",
-  // permanentAddress: "166 Lombardy Street, Allensworth, Alabama, 30899",
-  // designation: "Senior Lacturar",
+  name: {
+    firstName: "Janna",
+    middleName: "Imogene",
+    lastName: "Burks",
+  },
+  gender: "female",
+  email: "imogeneburks@viagreat.com",
+  contactNo: "(943) 543-2923",
+  emergencyContactNo: "(937) 501-3846",
+  bloodGroup: "O-",
+  presentAddress: "681 Little Street, Turah, California, 55916",
+  permanentAddress: "166 Lombardy Street, Allensworth, Alabama, 30899",
+  designation: "Senior Lacturar",
 };
 
 export const adminDefaultValues = {
-  // name: {
-  //   firstName: "Patel",
-  //   middleName: "Reyes",
-  //   lastName: "Johnston",
-  // },
-  // gender: "female",
-  // email: "reyesjohnston@kenegy.com",
-  // contactNo: "(829) 577-3783",
-  // emergencyContactNo: "(891) 523-2049",
-  // bloodGroup: "B+",
-  // presentAddress: "126 Fulton Street, Harleigh, Alaska, 14954",
-  // permanentAddress: "844 Greenwood Avenue, Roberts, Minnesota, 16443",
-  // designation: "Principle",
+  name: {
+    firstName: "Patel",
+    middleName: "Reyes",
+    lastName: "Johnston",
+  },
+  gender: "female",
+  email: "reyesjohnston@kenegy.com",
+  contactNo: "(829) 577-3783",
+  emergencyContactNo: "(891) 523-2049",
+  bloodGroup: "B+",
+  presentAddress: "126 Fulton Street, Harleigh, Alaska, 14954",
+  permanentAddress: "844 Greenwood Avenue, Roberts, Minnesota, 16443",
+  designation: "Principle",
 };
 
 export const semesterRegistrationDefaultValues = {
@@ -66,8 +66,8 @@ export const semesterRegistrationDefaultValues = {
 };
 
 export const courseDefaultValues = {
-  // title: "CSS",
-  // prefix: "CSS",
-  // code: "102",
-  // credits: 3,
+  title: "CSS",
+  prefix: "CSS",
+  code: "102",
+  credits: 3,
 };
