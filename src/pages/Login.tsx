@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import CustomForm from "../components/form/CustomForm";
 import CustomInput from "../components/form/CustomInput";
 import { useEffect } from "react";
+import Credentials from "./Credentials";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,8 +36,8 @@ const Login = () => {
   }, [CurrentUser, navigate]);
 
   const defaultValues = {
-    userId: "F-0001",
-    password: "pherowebsite!@1",
+    userId: "A-0001",
+    password: "defaultPass!@",
   };
 
   // Login Mutation Hook
@@ -50,7 +51,6 @@ const Login = () => {
         id: data.userId,
         password: data.password,
       };
-      console.log(submitInfo);
       const res = await login(submitInfo).unwrap();
       const user = verifyToken(res?.data?.accessToken) as TUser;
       console.log(res);
@@ -83,11 +83,14 @@ const Login = () => {
   };
   return (
     <Row justify={"center"} align={"middle"} className="h-[100vh]">
-      <CustomForm onSubmit={onSubmit} defaultValues={defaultValues}>
-        <CustomInput type={"text"} name={"userId"} label={"Id"} />
-        <CustomInput type={"text"} name={"password"} label={"Password"} />
-        <Button htmlType="submit">Login</Button>
-      </CustomForm>
+      <div className="flex flex-col">
+        <CustomForm onSubmit={onSubmit} defaultValues={defaultValues}>
+          <CustomInput type={"text"} name={"userId"} label={"Id"} />
+          <CustomInput type={"text"} name={"password"} label={"Password"} />
+          <Button htmlType="submit">Login</Button>
+        </CustomForm>
+        <Credentials />
+      </div>
     </Row>
   );
 };
