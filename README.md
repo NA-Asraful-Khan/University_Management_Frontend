@@ -82,7 +82,7 @@ The build files will be available in the `build/` directory.
 
 ## 👨‍💻 Contributors
 
-- [Your Name](https://github.com/your-username)
+- [Nur A Asraful Khan](https://github.com/NA-Asraful-Khan)
 
 ## 📜 License
 
