@@ -44,7 +44,7 @@ const FacultyList = () => {
   } = useGetAllFacultyByPaginationQuery([
     { name: "limit", value: pageSize },
     { name: "page", value: page },
-    { name: "sort", value: "-id" },
+    { name: "sort", value: "id" },
     ...params,
   ]);
 

@@ -4,3 +4,4 @@ export * from "./academicManagement.type";
 export * from "./userManagement.type";
 export * from "./courseManagement.type";
 export * from "./studentCourseManagement.type";
+export * from "./dashboard.type";

@@ -11,8 +11,12 @@ const Credentials = () => {
       Description: "ID: F-0001, Password: facultypass",
     },
     {
-      title: "Student",
-      Description: "ID: 2024020001, Password: studentpass",
+      title: "Student-1",
+      Description: "ID: 2025020001, Password: studentpass",
+    },
+    {
+      title: "Student-2",
+      Description: "ID: 2025020003, Password: studentpass",
     },
   ];
   return (

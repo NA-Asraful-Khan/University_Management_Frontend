@@ -1,6 +1,6 @@
 import {
+  TDashboard,
   TResponseRedux,
-  TSemesterRegistration,
 } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
@@ -14,7 +14,23 @@ const dashboardStatsApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (
-        response: TResponseRedux<TSemesterRegistration[]>
+        response: TResponseRedux<TDashboard>
+      ) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "dashboardStats" }],
+    }),
+    getFacultyDashboardStats: builder.query({
+      query: () => {
+        return {
+          url: "/dashboard/faculty",
+          method: "GET",
+        };
+      },
+      transformResponse: (
+        response: TResponseRedux<TDashboard>
       ) => {
         return {
           data: response.data,
@@ -26,5 +42,6 @@ const dashboardStatsApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetAdminDashboardStatsQuery
+  useGetAdminDashboardStatsQuery,
+  useGetFacultyDashboardStatsQuery
 } = dashboardStatsApi;

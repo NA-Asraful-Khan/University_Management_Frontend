@@ -30,7 +30,7 @@ const Courses = () => {
   } = useGetAllCoursesByPaginationQuery([
     { name: "limit", value: pageSize },
     { name: "page", value: page },
-    { name: "sort", value: "-id" },
+    { name: "sort", value: "code" },
     ...params,
   ]);
 
