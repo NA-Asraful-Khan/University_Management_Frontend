@@ -27,37 +27,37 @@ export const studentDefaultValues = {
   },
 };
 
-export const facultyDefaultValues = {
-  // name: {
-  //   firstName: "Janna",
-  //   middleName: "Imogene",
-  //   lastName: "Burks",
-  // },
-  // gender: "female",
-  // email: "imogeneburks@viagreat.com",
-  // contactNo: "(943) 543-2923",
-  // emergencyContactNo: "(937) 501-3846",
-  // bloodGroup: "O-",
-  // presentAddress: "681 Little Street, Turah, California, 55916",
-  // permanentAddress: "166 Lombardy Street, Allensworth, Alabama, 30899",
-  // designation: "Senior Lacturar",
-};
+export const facultyDefaultValues =  {
+    "name": {
+      "firstName": "Benjamin",
+      "middleName": "Oliver",
+      "lastName": "Murray"
+    },
+    "gender": "male",
+    "email": "benjaminmurray@linguistics.edu",
+    "contactNo": "(702) 441-1133",
+    "emergencyContactNo": "(702) 665-8877",
+    "bloodGroup": "A+",
+    "presentAddress": "789 Syntax St, Henderson, Nevada, 89015",
+    "permanentAddress": "102 Grammar Rd, Las Vegas, Nevada, 89110",
+    "designation": "Senior Lecturer"
+  }
 
 export const adminDefaultValues = {
-  // name: {
-  //   firstName: "Patel",
-  //   middleName: "Reyes",
-  //   lastName: "Johnston",
-  // },
-  // gender: "female",
-  // email: "reyesjohnston@kenegy.com",
-  // contactNo: "(829) 577-3783",
-  // emergencyContactNo: "(891) 523-2049",
-  // bloodGroup: "B+",
-  // presentAddress: "126 Fulton Street, Harleigh, Alaska, 14954",
-  // permanentAddress: "844 Greenwood Avenue, Roberts, Minnesota, 16443",
-  // designation: "Principle",
-};
+    // "name": {
+    //   "firstName": "Jamal",
+    //   "middleName": "Lee",
+    //   "lastName": "Howard"
+    // },
+    // "gender": "male",
+    // "email": "jamalhoward@zenithcorp.net",
+    // "contactNo": "(718) 245-8741",
+    // "emergencyContactNo": "(718) 342-9023",
+    // "bloodGroup": "AB+",
+    // "presentAddress": "305 Madison Street, Brooklyn, New York, 11221",
+    // "permanentAddress": "2004 Eastern Parkway, Bronx, New York, 10460",
+    // "designation": "Academic Coordinator"
+  }
 
 export const semesterRegistrationDefaultValues = {
   status: "UPCOMING",

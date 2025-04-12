@@ -11,4 +11,5 @@ export const tagTypes = [
   "myOfferedCourse",
   "enrollCourse",
   "facultySchedule",
+  "dashboardStats"
 ];

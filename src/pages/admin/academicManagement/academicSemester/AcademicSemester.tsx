@@ -16,7 +16,7 @@ const AcademicSemester = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize, setPageSize] = useState(5);
   const { pathname } = useLocation();
 
   //& Get Semester Data
@@ -199,9 +199,9 @@ const AcademicSemester = () => {
       />
 
       <Pagination
-        showQuickJumper
+        // showQuickJumper
         showTotal={(total, range) =>
-          `${range[0]}-${range[1]} of ${total} items`
+          `${range[0]}-${range[1]} out of ${total} items`
         }
         defaultCurrent={1}
         total={pagination?.total}

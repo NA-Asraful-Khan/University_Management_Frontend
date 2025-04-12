@@ -11,8 +11,11 @@ import { logout, setUser } from "../features/auth/auth.slice";
 import { toast } from "sonner";
 import { TResponse } from "../../types";
 import { tagTypes } from "../../types/tagTypes";
+
+// const baseUrl= "https://unimanagement.na-api-bundle.cyou/api/v1";
+const baseUrl= "http://localhost:30001/api/v1";
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://unimanagement.na-api-bundle.cyou/api/v1",
+  baseUrl: baseUrl,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -36,7 +39,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
   if (result?.error?.status === 401) {
     const res = await fetch(
-      "https://unimanagement.na-api-bundle.cyou/api/v1/auth/refresh-token",
+      `${baseUrl}/auth/refresh-token`,
       {
         method: "POST",
         credentials: "include",

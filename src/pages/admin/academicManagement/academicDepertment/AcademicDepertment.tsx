@@ -24,7 +24,7 @@ const AcademicDepertment = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
   const { pathname } = useLocation();
 
   // Get Adacemic DepertmentData Data
@@ -108,7 +108,7 @@ const AcademicDepertment = () => {
       />
 
       <Pagination
-        showQuickJumper
+        // showQuickJumper
         showTotal={(total, range) =>
           `${range[0]}-${range[1]} of ${total} items`
         }
