@@ -28,7 +28,9 @@ const CustomInput = ({
     prefix,
     placeholder,
     className: `
-      h-11 
+      border 
+      border-1 
+      border-black
       bg-white 
       transition-all 
       duration-200
