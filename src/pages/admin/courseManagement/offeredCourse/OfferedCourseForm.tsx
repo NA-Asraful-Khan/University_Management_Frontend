@@ -59,17 +59,21 @@ const OfferedCourseForm = ({ id, defaultValues }: TOfferedCourseProps) => {
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Creating... ");
     try {
+      const startTimeRaw = data?.startTime?.[0];
+      const endTimeRaw = data?.startTime?.[1];
+
       const finalData = {
         ...data,
         maxCapacity: Number(data?.maxCapacity),
         section: Number(data?.section),
-        startTime: dayjs(data?.startTime[0]).format("HH:mm"),
-        endTime: dayjs(data?.startTime[1]).format("HH:mm"),
+        startTime: startTimeRaw ? dayjs(startTimeRaw).format("HH:mm") : null,
+        endTime: endTimeRaw ? dayjs(endTimeRaw).format("HH:mm") : null,
       };
 
       let res: TResponse<any>;
 
       if (id) {
+        console.log("Inside Update", finalData);
         // Update operation
         res = (await UpdateOfferedCourse({
           data: finalData,
@@ -81,9 +85,12 @@ const OfferedCourseForm = ({ id, defaultValues }: TOfferedCourseProps) => {
       }
 
       if (!res.error) {
-        toast.success(`Offered Course created successfully`, {
-          id: toastId,
-        });
+        toast.success(
+          `Offered Course ${id ? "updated" : "created"} successfully`,
+          {
+            id: toastId,
+          }
+        );
         navigate(`/admin/offered-course-list`);
       } else {
         toast.error(res.error.data.message, {
@@ -99,7 +106,9 @@ const OfferedCourseForm = ({ id, defaultValues }: TOfferedCourseProps) => {
   };
   return (
     <div>
-      <h1 className="text-xl font-bold">Create Student</h1>
+      <h1 className="text-xl font-bold">
+        {id ? "Update" : "Create"} Offered Course
+      </h1>
       <CustomForm
         onSubmit={onSubmit}
         defaultValues={defaultValues ? defaultValues : {}}

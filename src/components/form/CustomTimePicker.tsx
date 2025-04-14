@@ -10,8 +10,8 @@ type TTimePickerProps = {
 
 dayjs.extend(customParseFormat);
 const CustomTimePicker = ({ name, label }: TTimePickerProps) => {
-  const startTime = dayjs("12:08", "HH:mm");
-  const endTime = dayjs("12:08", "HH:mm");
+  const startTime = dayjs("08:00", "HH:mm");
+  const endTime = dayjs("09:00", "HH:mm");
 
   return (
     <div className="mb-5">

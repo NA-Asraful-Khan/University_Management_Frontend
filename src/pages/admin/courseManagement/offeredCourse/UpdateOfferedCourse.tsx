@@ -58,7 +58,6 @@ const UpdateOfferedCourse = () => {
   return (
     <div>
       <OfferedCourseForm id={offeredCourseId} defaultValues={defaultData} />
-      <h1>{offeredCourseId}</h1>
     </div>
   );
 };

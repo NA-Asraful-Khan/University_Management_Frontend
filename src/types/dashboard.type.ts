@@ -7,4 +7,7 @@ export interface TDashboard {
   studentCount: string;
   totalCourse: string;
   totalOfferedCourse: string;
+  myEnrolledCourses: string;
+  totalCompletedCredit: string;
+ 
 }

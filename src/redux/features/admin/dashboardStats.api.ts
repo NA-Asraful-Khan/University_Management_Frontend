@@ -38,10 +38,28 @@ const dashboardStatsApi = baseApi.injectEndpoints({
       },
       providesTags: [{ type: "dashboardStats" }],
     }),
+
+    getStudentDashboardStats: builder.query({
+      query: () => {
+        return {
+          url: "/dashboard/student",
+          method: "GET",
+        };
+      },
+      transformResponse: (
+        response: TResponseRedux<TDashboard>
+      ) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: [{ type: "dashboardStats" }],
+    }),
   }),
 });
 
 export const {
   useGetAdminDashboardStatsQuery,
-  useGetFacultyDashboardStatsQuery
+  useGetFacultyDashboardStatsQuery,
+  useGetStudentDashboardStatsQuery,
 } = dashboardStatsApi;

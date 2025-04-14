@@ -12,8 +12,8 @@ import { toast } from "sonner";
 import { TResponse } from "../../types";
 import { tagTypes } from "../../types/tagTypes";
 
-// const baseUrl= "https://unimanagement.na-api-bundle.cyou/api/v1";
-const baseUrl= "http://localhost:30001/api/v1";
+const baseUrl= "https://unimanagement.na-api-bundle.cyou/api/v1";
+// const baseUrl= "http://localhost:30001/api/v1";
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
   credentials: "include",
